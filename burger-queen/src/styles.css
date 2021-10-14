@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.btn-orange {
+    background: #fd7e14;
+    color: #ffff;
+}
+
+.btn-orange:hover {
+    opacity: 0.85;
+    color: #fff;
+}
+
+.bg-login {
+    background-image: url('assets\img\img-burger-login.png');
+    border-radius: 16px 0px 0px 16px;
+}
