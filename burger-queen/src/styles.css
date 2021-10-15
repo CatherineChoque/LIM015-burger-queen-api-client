@@ -13,3 +13,71 @@
     background-image: url('assets\img\img-burger-login.png');
     border-radius: 16px 0px 0px 16px;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.header-burger {
+    padding: 0.8rem;
+}
+
+.container-vertical {
+    height: 100vh;
+    z-index: 2;
+    position: absolute;
+}
+  .side-nav,
+  .nav-menu {
+    height: 100%;
+  }
+  .side-nav .nav-menu {
+    list-style: none;
+    padding: 20px 0;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border-right: 2px solid #EAEAEA;
+  }
+  .side-nav .nav-item {
+    position: relative;
+    padding: 10px 20px;
+  }
+  .nav-item.active {
+    background-color: #FFEAE6;
+  }
+  .nav-item.active a {
+    color: #EF5A3A;
+    
+  }
+  .nav-item a {
+    text-decoration: none;
+    color: #D1D1D1;
+    font-size: 30px;
+  }
+  .menu-text {
+    padding: 0 20px;
+  }
+  .side-nav .nav-item.active::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    bottom: 100%;
+    right: 0;
+    height: 150%;
+    width: 20px;
+  }
+  .side-nav .nav-item.active::after {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    top: 100%;
+    right: 0;
+    height: 150%;
+    width: 20px;
+   
+  }
