@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
-        <div class="card box-shadow">
-          <img src="https://www.elespectador.com/resizer/EfBdvKaMmD23gBgnU5rIQJ1BXcU=/657x0/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/XQAAMAXBUFFTTONUKMAMMOYOOA.jpg" class="card-img-top" alt="...">
+        <div class="card box-shadow" (click)="modifyProducts(['1', 'jugo de fresa', 'https://bit.ly/3DSNqdf', '8'])">
+          <img src="https://www.elespectador.com/resizer/EfBdvKaMmD23gBgnU5rIQJ1BXcU=/657x0/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/XQAAMAXBUFFTTONUKMAMMOYOOA.jpg" class="card-img-top position-relative" alt="...">
+          <div class="position-absolute card-img-top product-img-selected text-center" *ngIf="selectedProducts.includes('1')">
+            <i class="fas fa-check-circle"></i>
+          </div>
           <div class="card-body">
             <h6 class="card-title text-product">Card title</h6>
             <h6 class="card-text price-product">S/. 8.90</h6>
@@ -11,8 +14,11 @@
     
     
       <div class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
-        <div class="card box-shadow">
+        <div class="card box-shadow" (click)="modifyProducts(['2', 'jugo de mango', 'https://bit.ly/3DSNqdf', '5']) " >
           <img src="https://www.elespectador.com/resizer/EfBdvKaMmD23gBgnU5rIQJ1BXcU=/657x0/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/XQAAMAXBUFFTTONUKMAMMOYOOA.jpg" class="card-img-top" alt="...">
+          <div class="position-absolute card-img-top product-img-selected text-center" *ngIf="selectedProducts.includes('2')">
+            <i class="fas fa-check-circle"></i>
+          </div>
           <div class="card-body">
             <h6 class="card-title text-product">Card title</h6>
             <h6 class="card-text price-product">S/. 8.90</h6>
@@ -22,8 +28,11 @@
     
     
       <div class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
-        <div class="card box-shadow">
+        <div class="card box-shadow" (click)="modifyProducts(['3', 'jugo de papaya', 'https://bit.ly/3DSNqdf', '35'])">
           <img src="https://www.elespectador.com/resizer/EfBdvKaMmD23gBgnU5rIQJ1BXcU=/657x0/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/XQAAMAXBUFFTTONUKMAMMOYOOA.jpg" class="card-img-top" alt="...">
+          <div class="position-absolute card-img-top text-center product-img-selected" *ngIf="selectedProducts.includes('3')">
+            <i class="fas fa-check-circle"></i>
+          </div>
           <div class="card-body">
             <h6 class="card-title text-product">Card title</h6>
             <h6 class="card-text price-product">S/. 8.90</h6>
@@ -32,8 +41,11 @@
       </div>
     
       <div class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
-        <div class="card box-shadow">
+        <div class="card box-shadow" (click)="modifyProducts(['4', 'jugo de melon', 'https://bit.ly/3DSNqdf', '32'])">
           <img src="https://www.elespectador.com/resizer/EfBdvKaMmD23gBgnU5rIQJ1BXcU=/657x0/filters:format(jpeg)/cloudfront-us-east-1.images.arcpublishing.com/elespectador/XQAAMAXBUFFTTONUKMAMMOYOOA.jpg" class="card-img-top" alt="...">
+          <div class="position-absolute card-img-top product-img-selected text-center " *ngIf="selectedProducts.includes('4')">
+            <i class="fas fa-check-circle"></i>
+          </div>
           <div class="card-body">
             <h6 class="card-title text-product">Card title</h6>
             <h6 class="card-text price-product">S/. 8.90</h6>

@@ -151,3 +151,20 @@
   opacity: 0.85;
   color: #fff;
 }
+
+.product-img-selected {
+  background-color: rgba(5, 5, 5, 0.45);;
+  height: 100%;
+  display: block;
+}
+
+.product-img-selected i {
+  color: #ffff;
+  font-size: 40px;
+  margin-top: 25%;
+}
+
+.card-body {
+  background: #ffff;
+  z-index: 3;
+}
