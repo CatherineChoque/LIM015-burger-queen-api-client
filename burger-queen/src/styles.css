@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+
+
+
 .btn-orange {
     background: #fd7e14;
     color: #ffff;
@@ -16,8 +21,8 @@
 
 .avatar {
     vertical-align: middle;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 
@@ -55,6 +60,8 @@
   margin-left: 10px;
   background-color: #F5F5F5;
   color: #B9B9B9;
+  cursor: pointer;
+  border:1px solid #eeeeee;
 }
 
 .category-active {
@@ -74,4 +81,73 @@
     justify-content: center;
     align-items: center;
     font-size: 30px;
+}
+
+.nav-link i{
+  font-size: 27px !important;
+}
+
+.text-product{
+  color:#4E4E4E;
+}
+
+.price-product{
+  color: #E94F35;
+}
+
+.card-product{
+  cursor: pointer;
+}
+
+.group-product{
+ width: 120px;
+}
+
+.group-product input{
+  border: 1px solid #FBBB21;
+  text-align: center;
+}
+
+.btn-outline-orange{
+  border: 1px solid #FBBB21;
+  color:#FBBB21;
+}
+
+.btn-outline-orange:hover{
+  background-color:#FBBB21;
+  color:#fff;
+}
+
+.btn-delete-row{
+  text-align: center;
+  color:#ff3547;
+}
+
+.btn-delete-row:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.total-sumary{
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.alert-warning{
+  height: 40px;
+}
+
+.alert-warning p{
+  margin-top:-10px;
+}
+
+
+.btn-orange2{
+  background: #EF5A3A;
+  color: #ffff;
+}
+
+.btn-orange2:hover{
+  opacity: 0.85;
+  color: #fff;
 }
