@@ -1,4 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
 
 @Component({
   selector: 'app-container-productos',
@@ -8,12 +9,10 @@ import { Component, OnInit, Input} from '@angular/core';
 export class ContainerProductosComponent implements OnInit {
 // estado incial
   selectedProducts:string[] = [];
-  @Input() tableSelectedProducts:any[] = [];
-//  tableSelectedProducts:any[] = [];
+ // tableSelectedProducts:any[] = [];
 
-
-  constructor() {
-   }
+  constructor(private dataSelectedProducts: DataProductsSelectedService) {
+  }
 
   ngOnInit(): void {
   }
@@ -23,20 +22,23 @@ export class ContainerProductosComponent implements OnInit {
     if(this.selectedProducts.includes(infoProduct[0])){
       // remover
       this.selectedProducts = this.selectedProducts.filter(product => product !== infoProduct[0])
-      this.tableSelectedProducts = this.tableSelectedProducts.filter(product => product.id !== infoProduct[0])
-      console.log(this.tableSelectedProducts, 'nuevo despues de eliminado')
+      this.dataSelectedProducts.updateDataSelectProducts(infoProduct[0],'delete'); //aqui le paso el id
+
+      this.dataSelectedProducts.updateTotal();
+      
     }else{
       this.selectedProducts = [...this.selectedProducts, infoProduct[0]]
-      console.log(infoProduct[1],'este es su nombre')
-      // push a la tabla
-      this.tableSelectedProducts = [...this.tableSelectedProducts, {
+
+      this.dataSelectedProducts.updateDataSelectProducts({
         id: infoProduct[0],
         name: infoProduct[1],
         quantity: 1,
         img: infoProduct[2],
         price: infoProduct[3]
-      }]
-      console.log(this.tableSelectedProducts, 'nuevo producto')
+      },'add'); //aqui le paso el id
+      
+      this.dataSelectedProducts.updateTotal();
+     
     }
   }
 }
