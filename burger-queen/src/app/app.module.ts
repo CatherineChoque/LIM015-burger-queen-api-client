@@ -9,6 +9,7 @@ import { HeaderVerticalComponent } from './components/header-vertical/header-ver
 import { ContainerWaiterComponent } from './components/view-waiter/container-waiter/container-waiter.component';
 import { ContainerProductosComponent } from './components/view-waiter/container-productos/container-productos.component';
 import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component'; 
+import { DataProductsSelectedService } from './services/data-products-selected.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,7 @@ import { ContainerSumaryComponent } from './components/view-waiter/container-sum
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DataProductsSelectedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
