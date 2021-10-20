@@ -4,23 +4,23 @@
       </a>
       <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mx-auto text-center justify-content-between w-100 px-2 align-items-center">
           <li class="nav-item">
-              <a href="#" class="nav-link py-3 px-2">
-                  <i class="fa fa-book fs-1 active" title="Menu"></i>
+              <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/menu' (click)="modifyOption('menu')" >
+                  <i class="fa fa-book fs-1 text-gray-ligth"  [ngClass]="optionMenu ? 'activeOption':''"  title="Menu"></i>
               </a>
           </li>
           <li>
-              <a href="#" class="nav-link py-3 px-2">
-                  <i class="fa fa-paper-plane fs-1 text-gray-ligth" title="Enviados"></i>
+              <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/send' (click)="modifyOption('sent')">
+                  <i class="fa fa-paper-plane fs-1 text-gray-ligth"   [ngClass]="optionSent ? 'activeOption':''" title="Enviados"></i>
               </a>
           </li>
           <li>
-              <a href="#" class="nav-link py-3 px-2">
-                  <i class="fa fa-bell fs-1 text-gray-ligth" title="Listos"></i>
+              <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/ready' (click)="modifyOption('ready')">
+                  <i class="fa fa-bell fs-1 text-gray-ligth"  [ngClass]="optionReady ? 'activeOption':''"   title="Listos"></i>
               </a>
           </li>
           <li>
-              <a href="#" class="nav-link py-3 px-2">
-                <i class="fas fa-sign-out-alt fs-1 text-gray-ligth" title="Salir"></i>
+              <a href="#" class="nav-link py-3 px-2" routerLink='/login'>
+                <i class="fas fa-sign-out-alt fs-1 text-gray-ligth"  title="Salir"></i>
               </a>
           </li>
           <li>
