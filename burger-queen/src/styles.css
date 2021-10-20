@@ -26,12 +26,12 @@
     border-radius: 50%;
 }
 
-.active {
-  color: #EF5A3A;
+.activeOption {
+  color: #E94F35 !important;
 }
 
-.active a:hover {
-  color: #EF5A3A;
+.prueba {
+  background-color: red;
 }
 
 .text-orange {
@@ -150,4 +150,21 @@
 .btn-orange2:hover{
   opacity: 0.85;
   color: #fff;
+}
+
+.product-img-selected {
+  background-color: rgba(5, 5, 5, 0.45);;
+  height: 100%;
+  display: block;
+}
+
+.product-img-selected i {
+  color: #ffff;
+  font-size: 40px;
+  margin-top: 25%;
+}
+
+.card-body {
+  background: #ffff;
+  z-index: 3;
 }
