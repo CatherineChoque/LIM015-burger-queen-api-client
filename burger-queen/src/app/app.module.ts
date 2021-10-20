@@ -11,6 +11,8 @@ import { ContainerProductosComponent } from './components/view-waiter/container-
 import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component';
 import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
 import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
+import { DataProductsSelectedService } from './services/data-products-selected.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,7 @@ import { ContainerReadyComponent } from './components/view-waiter/container-read
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [DataProductsSelectedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
