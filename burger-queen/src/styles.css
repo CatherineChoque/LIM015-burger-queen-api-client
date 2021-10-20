@@ -26,12 +26,12 @@
     border-radius: 50%;
 }
 
-.active {
-  color: #EF5A3A;
+.activeOption {
+  color: #E94F35 !important;
 }
 
-.active a:hover {
-  color: #EF5A3A;
+.prueba {
+  background-color: red;
 }
 
 .text-orange {

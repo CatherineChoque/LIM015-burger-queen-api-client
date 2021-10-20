@@ -8,7 +8,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HeaderVerticalComponent } from './components/header-vertical/header-vertical.component';
 import { ContainerWaiterComponent } from './components/view-waiter/container-waiter/container-waiter.component';
 import { ContainerProductosComponent } from './components/view-waiter/container-productos/container-productos.component';
-import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component'; 
+import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component';
+import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
+import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,8 @@ import { ContainerSumaryComponent } from './components/view-waiter/container-sum
     ContainerWaiterComponent,
     ContainerProductosComponent,
     ContainerSumaryComponent,
+    ContainerSentComponent,
+    ContainerReadyComponent,
   ],
   imports: [
     BrowserModule,
