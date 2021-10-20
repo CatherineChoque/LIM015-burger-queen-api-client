@@ -12,8 +12,6 @@ import { ContainerSumaryComponent } from './components/view-waiter/container-sum
 import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
 import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
 import { DataProductsSelectedService } from './services/data-products-selected.service';
-import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component'; 
-import { DataProductsSelectedService } from './services/data-products-selected.service';
 
 @NgModule({
   declarations: [

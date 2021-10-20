@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
 
 @Component({
@@ -7,38 +7,36 @@ import { DataProductsSelectedService } from 'src/app/services/data-products-sele
   styleUrls: ['./container-productos.component.css']
 })
 export class ContainerProductosComponent implements OnInit {
-// estado incial
-  selectedProducts:string[] = [];
- // tableSelectedProducts:any[] = [];
 
-  constructor(private dataSelectedProducts: DataProductsSelectedService) {
+  public dataProducts;
+  public productsSelected;
+
+  constructor(public dataSelectedProducts: DataProductsSelectedService) {
+    this.dataProducts = dataSelectedProducts.getAllDataProducts();
+    this.productsSelected = dataSelectedProducts.getDataSelectProducts();
+    
   }
 
   ngOnInit(): void {
   }
-
-  // funcion que cambia el estado
-  modifyProducts(infoProduct:string[]){
-    if(this.selectedProducts.includes(infoProduct[0])){
-      // remover
-      this.selectedProducts = this.selectedProducts.filter(product => product !== infoProduct[0])
-      this.dataSelectedProducts.updateDataSelectProducts(infoProduct[0],'delete'); //aqui le paso el id
-
-      this.dataSelectedProducts.updateTotal();
-      
+  
+  modifyProducts(objProduct:any){
+   
+    if(this.productsSelected.includes(objProduct)){
+        this.dataSelectedProducts.updateDataSelectProducts(objProduct.id,'delete'); //aqui le paso el id
+        this.dataSelectedProducts.updateTotal();
+        
     }else{
-      this.selectedProducts = [...this.selectedProducts, infoProduct[0]]
+        objProduct.quantity=1; 
+        objProduct.subTotal=(objProduct.price).toFixed(2); 
 
-      this.dataSelectedProducts.updateDataSelectProducts({
-        id: infoProduct[0],
-        name: infoProduct[1],
-        quantity: 1,
-        img: infoProduct[2],
-        price: infoProduct[3]
-      },'add'); //aqui le paso el id
-      
-      this.dataSelectedProducts.updateTotal();
-     
-    }
+        this.dataSelectedProducts.updateDataSelectProducts(objProduct,'add'); //aqui le paso el id
+        this.dataSelectedProducts.updateTotal();
+    } 
+    //Volvemos a llamar los que estan selecionados, para que actualice en la DOM
+    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
+
   }
+
+  
 }

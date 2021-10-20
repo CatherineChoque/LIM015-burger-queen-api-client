@@ -7,7 +7,9 @@ import { DataProductsSelectedService } from 'src/app/services/data-products-sele
   styleUrls: ['./container-sumary.component.css']
 })
 export class ContainerSumaryComponent implements OnInit {
-  constructor(public dataSelectedProducts: DataProductsSelectedService) { }
+  constructor(public dataSelectedProducts: DataProductsSelectedService) { 
+    
+  }
   
   ngOnInit(): void {
   }
@@ -17,5 +19,15 @@ export class ContainerSumaryComponent implements OnInit {
 
   cancelOrder() {
     this.dataSelectedProducts.cleanOrder();
+  }
+
+  deleteProductSelected(id:string){
+   this.dataSelectedProducts.updateDataSelectProducts(id,'delete');
+   this.dataSelectedProducts.updateTotal();
+  }
+
+  updateQuantityProduct(id:string,action: string){
+     this.dataSelectedProducts.updateQuantity(id,action);
+     this.dataSelectedProducts.updateTotal();
   }
 }
