@@ -12,6 +12,7 @@ import { ContainerSumaryComponent } from './components/view-waiter/container-sum
 import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
 import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
 import { DataProductsSelectedService } from './services/data-products-selected.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DataProductsSelectedService } from './services/data-products-selected.s
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [DataProductsSelectedService],
   bootstrap: [AppComponent]
