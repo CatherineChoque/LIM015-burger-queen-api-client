@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
 
 @Component({
