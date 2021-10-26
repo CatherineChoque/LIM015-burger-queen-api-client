@@ -173,3 +173,83 @@
   height: 100%;
 }
 
+/* colores */
+.color-myPrimary {
+  background: #EF5A3A;
+}
+
+.color-myPrimary-v2 {
+  background: #FFBA0C;
+}
+
+.color-mySecondary {
+  background: #dadada;
+}
+
+.color-myGray {
+  background: #f8f8f8;
+}
+
+/* texto */
+.color-myGray-text {
+  color: #8a8989;
+}
+
+/*iconos*/
+.icon-myEdit {
+  cursor: pointer;
+  color: #A4A4A4;
+}
+
+.icon-myRemove {
+  cursor: pointer;
+  color: #ff3547;
+}
+
+/* boton */
+.button-myPrimary {
+  background: #EF5A3A;
+  color: #ffff;
+}
+
+.button-mySecundary {
+  background: #FFBA0C;
+  color: #ffff;
+}
+
+/* tabla */
+.myImage {
+  max-width:50px;
+  height: auto;
+}
+
+/* estados */
+.span-on-hold {
+  background: #EF5A3A;
+  color: #ffff;
+  font-size: 15px;
+}
+
+.span-in-preparation {
+  background: #FBBB21;
+  color: #ffff;
+  font-size: 15px;
+}
+
+.span-ready {
+  background: #BA68C8;
+  color: #ffff;
+  font-size: 15px;
+}
+
+.span-finalized {
+  background: #1BC47D;
+  color: #ffff;
+  font-size: 15px;
+}
+
+.span-cancelled {
+  background: #4E4E4E;
+  color: #ffff;
+  font-size: 15px;
+}

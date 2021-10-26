@@ -3,13 +3,13 @@
         <img src="../../../assets/img/logo-icono.svg" width="35" height="35" alt="logo">
       </a>
       <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mx-auto text-center justify-content-between w-100 px-2 align-items-center">
-          <li class="nav-item">
+          <li>
               <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/menu' (click)="modifyOption('menu')" >
                   <i class="fa fa-book fs-1 text-gray-ligth"  [ngClass]="optionMenu ? 'activeOption':''"  title="Menu"></i>
               </a>
           </li>
           <li>
-              <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/send' (click)="modifyOption('sent')">
+              <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/sent' (click)="modifyOption('sent')">
                   <i class="fa fa-paper-plane fs-1 text-gray-ligth"   [ngClass]="optionSent ? 'activeOption':''" title="Enviados"></i>
               </a>
           </li>
@@ -23,6 +23,29 @@
                 <i class="fas fa-sign-out-alt fs-1 text-gray-ligth"  title="Salir"></i>
               </a>
           </li>
+          <!-- menus del cocinero-->
+          <li>
+            <a href="#" class="nav-link py-3 px-2" routerLink='/chef/envoy' (click)="modifyOption('envoy')">
+                <i class="fa fa-paper-plane-o fs-1 text-gray-ligth"   [ngClass]="optionEnvoy ? 'activeOption':''" title="Enviado"></i>
+            </a>
+        </li>
+          <!-- menus del admin-->
+          <li class="nav-item">
+            <a href="#" class="nav-link py-3 px-2" routerLink='/admin/products' (click)="modifyOption('products')" >
+                <i class="fa fa-cutlery fs-1 text-gray-ligth"  [ngClass]="optionProducts ? 'activeOption':''"  title="Productos"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link py-3 px-2" routerLink='/admin/users' (click)="modifyOption('users')">
+                <i class="fa fa-address-book fs-1 text-gray-ligth"  [ngClass]="optionUsers ? 'activeOption':''"   title="Usuarios"></i>
+            </a>
+          </li>
+          <li>
+              <a href="#" class="nav-link py-3 px-2" routerLink='/admin/record' (click)="modifyOption('record')">
+                <i class="fa fa-clock-o fs-1 text-gray-ligth"  [ngClass]="optionRecord ? 'activeOption':''" title="Historial"></i>
+              </a>
+          </li>
+          <!--avatar del usuario-->
           <li>
             <a href="#" class="nav-link py-3 px-2">
               <img src="../../../assets/img/mesero.jpg" width="25" height="25" class="avatar" alt="Perfil" title="Perfil">

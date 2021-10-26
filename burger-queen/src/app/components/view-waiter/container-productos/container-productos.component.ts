@@ -18,6 +18,10 @@ export class ContainerProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataProducts = this.dataSelectedProducts.getAllDataProducts();
+    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
+    console.log(this.productsSelected);
+    
   }
   
   modifyProducts(objProduct:any){

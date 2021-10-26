@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5 class="mt-3 mx-3">
+            Listado de Usuarios
+        </h5>
+        <div class="mt-2 mx-3">
+
+                  <div class="row  mt-4">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn button-mySecundary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar Usuarios</button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade mt-5" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content color-myGray-text">
+                          <div class="modal-header px-4">
+                            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body px-4">
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">Correo electronico</label>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3 row">
+                              <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Rol</label>
+                                <select class="form-select" id="inputGroupSelect01">
+                                  <option selected>Seleccione...</option>
+                                  <option value="mesero">Mesero</option>
+                                  <option value="cocinero">Cocinero</option>
+                                  <option value="admin">Admin</option>
+                                </select>
+                              </div>
+                              <div class="col">
+                                <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                                  <input type="text" class="form-control" aria-label="Text input with checkbox">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn button-mySecundary">Guardar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- tabla de usuarios -->
+                    <div class="table-responsive">
+                        <table class="table color-myGray-text">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Nº</th>
+                                  <th scope="col">Correo</th>
+                                  <th scope="col">Rol</th>
+                                  <th scope="col">Fecha</th>
+                                  <th scope="col">Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>maria@gmail.com</td>
+                                  <td>Admin</td>
+                                  <td>11/12/2021</td>
+                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">2</th>
+                                  <td>dante@gmail.com</td>
+                                  <td>Cocinero</td>
+                                  <td>12/12/2021</td>
+                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
+                                </tr>
+                                <tr>
+                                  <th scope="row">3</th>
+                                  <td>olivia@gmail.com</td>
+                                  <td>Mesero</td>
+                                  <td>12/12/2021</td>
+                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
+                                </tr>
+                              </tbody>
+                        </table>
+                      </div>
+                  </div>
+
+        </div>
+    </div>
+</div>
+
