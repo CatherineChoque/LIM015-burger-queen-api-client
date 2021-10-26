@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ViewWaiterComponent } from './components/view-waiter/view-waiter.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -11,8 +13,7 @@ import { ContainerProductosComponent } from './components/view-waiter/container-
 import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component';
 import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
 import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
-import { DataProductsSelectedService } from './services/data-products-selected.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,17 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [DataProductsSelectedService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

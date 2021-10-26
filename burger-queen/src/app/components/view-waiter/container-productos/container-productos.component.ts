@@ -14,7 +14,6 @@ export class ContainerProductosComponent implements OnInit {
   constructor(public dataSelectedProducts: DataProductsSelectedService) {
     this.dataProducts = dataSelectedProducts.getAllDataProducts();
     this.productsSelected = dataSelectedProducts.getDataSelectProducts();
-    
   }
 
   ngOnInit(): void {
@@ -25,7 +24,6 @@ export class ContainerProductosComponent implements OnInit {
     if(this.productsSelected.includes(objProduct)){
         this.dataSelectedProducts.updateDataSelectProducts(objProduct.id,'delete'); //aqui le paso el id
         this.dataSelectedProducts.updateTotal();
-        
     }else{
         objProduct.quantity=1; 
         objProduct.subTotal=(objProduct.price).toFixed(2); 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-vertical',
@@ -10,11 +11,11 @@ export class HeaderVerticalComponent implements OnInit {
   public optionSent = false;
   public optionReady  = false;
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
   }
-
+  
   modifyOption(option:string){
     console.log(option);
     switch(option){
@@ -34,6 +35,11 @@ export class HeaderVerticalComponent implements OnInit {
       this.optionSent = false;
       this.optionReady  = false;
     }
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('/login');
   }
 
 }
