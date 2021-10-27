@@ -12,6 +12,9 @@ import { ViewAdminComponent } from './components/view-admin/view-admin.component
 import { ContainerProductsComponent } from './components/view-admin/container-products/container-products.component';
 import { ContainerUsersComponent } from './components/view-admin/container-users/container-users.component';
 import { ContainerRecordComponent } from './components/view-admin/container-record/container-record.component';
+import { AccessViewWaiterGuard } from './guards/access-view-waiter.guard';
+import { AccessViewChefGuard } from './guards/access-view-chef.guard';
+import { AccessViewAdminGuard } from './guards/access-view-admin.guard';
 // import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
@@ -22,6 +25,8 @@ const routes: Routes = [
   },
   {
     path:'waiter', component:ViewWaiterComponent,
+    canActivate: [AccessViewWaiterGuard],
+    canActivateChild:[AccessViewWaiterGuard],
     children: [
       {path:'menu', component: ContainerWaiterComponent},
       {path:'sent', component:ContainerSentComponent},
@@ -30,12 +35,16 @@ const routes: Routes = [
   },
   {
     path:'chef', component:ViewChefComponent,
+    canActivate: [AccessViewChefGuard],
+    canActivateChild:[AccessViewChefGuard],
     children: [
       {path:'envoy', component:ContainerEnvoyComponent},
     ]
   },
   {
     path:'admin', component:ViewAdminComponent,
+    canActivate: [AccessViewAdminGuard],
+    canActivateChild:[AccessViewAdminGuard],
     children: [
       {path:'products', component:ContainerProductsComponent},
       {path:'users', component:ContainerUsersComponent},

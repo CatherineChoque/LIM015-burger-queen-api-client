@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
-
-
-
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.rtl.min.css";
 
 .btn-orange {
     background: #fd7e14;
@@ -12,6 +10,7 @@
 .btn-orange:hover {
     opacity: 0.85;
     color: #fff;
+    background: #fd7e14;
 }
 
 .bg-login {

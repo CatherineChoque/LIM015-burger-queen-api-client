@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header-vertical.component.css']
 })
 export class HeaderVerticalComponent implements OnInit {
-  public optionMenu = true;
+  public rol = localStorage.getItem("rol");
+  public optionMenu = false;
   public optionSent = false;
   public optionReady  = false;
   public optionEnvoy  = false;
@@ -15,9 +16,18 @@ export class HeaderVerticalComponent implements OnInit {
   public optionUsers = false;
   public optionRecord = false;
 
-  constructor( private router: Router) { }
+  constructor( private router: Router) { 
+
+  }
 
   ngOnInit(): void {
+    if(this.rol == "admin"){
+      this.optionProducts = true;
+    } else if(this.rol == "mesero") {
+      this.optionMenu = true;
+    } else {
+      this.optionEnvoy = true;
+    }
   }
   
   modifyOption(option:string){
@@ -100,6 +110,7 @@ export class HeaderVerticalComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
     this.router.navigateByUrl('/login');
   }
 
