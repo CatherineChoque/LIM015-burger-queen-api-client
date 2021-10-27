@@ -9,5 +9,5 @@ export interface ResponseGetUser{
     email:string; 
     password:string;
     roles:any;
-    createdAt:any;
+    createdAt:any;*/
 }

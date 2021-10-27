@@ -7,36 +7,6 @@ export class DataProductsSelectedService {
   arraySeletectProducts: any = [];
   total: number = 0;
 
-  getAllDataProducts() {
-    const data = [
-      {
-        id: '1',
-        name: 'Jugo de Fresa',
-        img: '../../../../assets/img/prueba/jugodefresa.jpg',
-        price: 5.50
-      },
-      {
-        id: '2',
-        name: 'Jugo de Mango',
-        img: '../../../../assets/img/prueba/jugodemango.jpg',
-        price: 4.20
-      },
-      {
-        id: '3',
-        name: 'Jugo de Papaya',
-        img: '../../../../assets/img/prueba/jugodepapaya.jpg',
-        price: 3.80
-      },
-      {
-        id: '4',
-        name: 'Cafe con Latte y Vainilla',
-        img: '../../../../assets/img/prueba/cafelatte.jpg',
-        price: 5.40
-      }
-    ]
-    return data;
-  }
-
   getDataSelectProducts() {
     return this.arraySeletectProducts;
   }
@@ -46,7 +16,7 @@ export class DataProductsSelectedService {
     if (action == 'add') {
       this.arraySeletectProducts = [...this.arraySeletectProducts, data];
     } else { //entonces eliminamos el producto de la Tabla
-      this.arraySeletectProducts = this.arraySeletectProducts.filter((product: { id: any; }) => product.id !== data);
+      this.arraySeletectProducts = this.arraySeletectProducts.filter((product: { _id: any; }) => product._id !== data);
       //console.log(this.arraySeletectProducts,'aqui actualizando deleted')
     }
   }
@@ -74,7 +44,7 @@ export class DataProductsSelectedService {
   //donde action puede aumentar la cantidad o disminuir
   updateQuantity(id: string, action: string) {
 
-    const objIndex = this.arraySeletectProducts.findIndex(((obj: { id: string; }) => obj.id == id));
+    const objIndex = this.arraySeletectProducts.findIndex(((obj: { _id: string; }) => obj._id == id));
     const quantityBefore = this.arraySeletectProducts[objIndex].quantity;
     const price = this.arraySeletectProducts[objIndex].price;
 
@@ -91,7 +61,6 @@ export class DataProductsSelectedService {
     this.arraySeletectProducts[objIndex].quantity = newQuantity;
     this.arraySeletectProducts[objIndex].subTotal =  newSubTotal.toFixed(2);
   }
-
 
   constructor() { }
 }

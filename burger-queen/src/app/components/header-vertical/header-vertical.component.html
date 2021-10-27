@@ -3,23 +3,23 @@
         <img src="../../../assets/img/logo-icono.svg" width="35" height="35" alt="logo">
       </a>
       <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mx-auto text-center justify-content-between w-100 px-2 align-items-center">
-          <div *ngIf="rol == 'mesero'">
-            <li>
+     
+            <li  *ngIf="rol == 'mesero'">
               <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/menu' (click)="modifyOption('menu')" >
                   <i class="fa fa-book fs-1 text-gray-ligth"  [ngClass]="optionMenu ? 'activeOption':''"  title="Menu"></i>
               </a>
             </li>
-            <li>
+            <li  *ngIf="rol == 'mesero'">
                 <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/sent' (click)="modifyOption('sent')">
                     <i class="fa fa-paper-plane fs-1 text-gray-ligth"   [ngClass]="optionSent ? 'activeOption':''" title="Enviados"></i>
                 </a>
             </li>
-            <li>
+            <li  *ngIf="rol == 'mesero'"> 
                 <a href="#" class="nav-link py-3 px-2" routerLink='/waiter/ready' (click)="modifyOption('ready')">
                     <i class="fa fa-bell fs-1 text-gray-ligth"  [ngClass]="optionReady ? 'activeOption':''"   title="Listos"></i>
                 </a>
             </li>
-          </div>
+        
 
           <!-- menus del cocinero-->
           <li *ngIf="rol == 'cocinero'">
@@ -28,24 +28,24 @@
             </a>
           </li>
           <!-- menus del admin-->
-          <div *ngIf="rol == 'admin'">
-            <li class="nav-item">
+    
+            <li class="nav-item" *ngIf="rol == 'admin'">
               <a href="#" class="nav-link py-3 px-2" routerLink='/admin/products' (click)="modifyOption('products')" >
                   <i class="fa fa-cutlery fs-1 text-gray-ligth"  [ngClass]="optionProducts ? 'activeOption':''"  title="Productos"></i>
               </a>
 
             </li>
-            <li>
+            <li *ngIf="rol == 'admin'">
               <a href="#" class="nav-link py-3 px-2" routerLink='/admin/users' (click)="modifyOption('users')">
                   <i class="fa fa-address-book fs-1 text-gray-ligth"  [ngClass]="optionUsers ? 'activeOption':''"   title="Usuarios"></i>
               </a>
             </li>
-            <li>
+            <li *ngIf="rol == 'admin'">
                 <a href="#" class="nav-link py-3 px-2" routerLink='/admin/record' (click)="modifyOption('record')">
                   <i class="fa fa-clock-o fs-1 text-gray-ligth"  [ngClass]="optionRecord ? 'activeOption':''" title="Historial"></i>
                 </a>
             </li>
-          </div>
+    
           
           <!--avatar del usuario-->
           <li>

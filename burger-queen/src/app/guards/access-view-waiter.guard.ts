@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivate, CanActivateChild} from '@angular/router';
+import { AlertifyService } from 'src/app/services/alertify/alertify-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessViewWaiterGuard implements CanActivate, CanActivateChild {
-  constructor(private router: Router) { }
+  constructor(private router: Router,private alertify: AlertifyService) { }
   private token = localStorage.getItem("token");
   private rol = localStorage.getItem("rol");
 
   canActivate() 
    {
     if(this.token == "" || this.token == null){
-      console.log('No estás logueado');
       this.router.navigate(['/login']);
+      this.alertify.error('No estas Logueado');
       return false;
     }
     if(this.rol == "cocinero"){
-      console.log('No estás autorizado');
       this.router.navigate(['/chef/envoy']);
+      this.alertify.error('No estás autorizado');
       return false;
     }
     if(this.rol == "admin"){
-      console.log('No estás autorizado');
       this.router.navigate(['/admin/products']);
+      this.alertify.error('No estás autorizado');
       return false;
     }
     return true;

@@ -27,6 +27,7 @@ export class ContainerSumaryComponent implements OnInit {
   }
 
   updateQuantityProduct(id:string,action: string){
+    console.log('id',id)
      this.dataSelectedProducts.updateQuantity(id,action);
      this.dataSelectedProducts.updateTotal();
   }
