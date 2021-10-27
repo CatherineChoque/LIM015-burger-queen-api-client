@@ -17,10 +17,8 @@ export class HeaderVerticalComponent implements OnInit {
   public optionRecord = false;
 
 
-  constructor( private router: Router) { 
-  }
-
-
+  constructor( private router: Router) {}
+  
   ngOnInit(): void {
     if(this.rol == "admin"){
       this.optionProducts = true;
@@ -97,16 +95,6 @@ export class HeaderVerticalComponent implements OnInit {
       this.optionProducts = false;
       this.optionUsers = false;
       this.optionRecord = true;
-      break;/*
-      case 'menu':
-      default:
-      this.optionMenu = true;
-      this.optionSent = false;
-      this.optionReady  = false;
-      this.optionEnvoy = false;
-      this.optionProducts =false;
-      this.optionUsers = false;
-      this.optionRecord =false;*/
     }
   }
 

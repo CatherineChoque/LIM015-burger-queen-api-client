@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
+import { ApiService} from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-container-productos',
@@ -8,25 +9,50 @@ import { DataProductsSelectedService } from 'src/app/services/data-products-sele
 })
 export class ContainerProductosComponent implements OnInit {
 
-  public dataProducts;
   public productsSelected;
+  public dataProducts:any=[];
 
-  constructor(public dataSelectedProducts: DataProductsSelectedService) {
-    this.dataProducts = dataSelectedProducts.getAllDataProducts();
+  public optionsCategory:any=[
+    {id: 1,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
+    {id: 2, nameCategory:'Hamburguesas',value:false,icon:"fas fa-mug-hot"},
+    {id: 3, nameCategory:'Almuerzos',value:false,icon:"fas fa-mug-hot"},
+    {id: 4,nameCategory:'Bebidas',value:false,icon:"fas fa-mug-hot"},
+    {id: 5,nameCategory:'Otros',value:false,icon:"fas fa-mug-hot"},
+  ];
+  
+  indexAnterior:number=-1
+
+  constructor(public dataSelectedProducts: DataProductsSelectedService, public apiService: ApiService) {
     this.productsSelected = dataSelectedProducts.getDataSelectProducts();
   }
 
+  loadProducts(nameCategory:string,index:number){
+    let dataByCategory:any=[];
+    this.apiService.getProducts().subscribe(dataProducts => {
+      dataProducts.forEach(dataProduct => {
+        dataByCategory.push(dataProduct);
+      })
+      dataByCategory=dataByCategory.filter((product: { type: string; }) => product.type == nameCategory)
+      this.dataProducts=dataByCategory;
+    }); 
+
+    this.optionsCategory[index].value = true;
+
+    if(this.indexAnterior!=-1){
+      this.optionsCategory[this.indexAnterior].value = false;
+      this.indexAnterior=index;
+    }
+
+  }
+
   ngOnInit(): void {
-    this.dataProducts = this.dataSelectedProducts.getAllDataProducts();
-    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
-    console.log(this.productsSelected);
-    
+    this.loadProducts('Desayunos',1);
   }
   
   modifyProducts(objProduct:any){
    
     if(this.productsSelected.includes(objProduct)){
-        this.dataSelectedProducts.updateDataSelectProducts(objProduct.id,'delete'); //aqui le paso el id
+        this.dataSelectedProducts.updateDataSelectProducts(objProduct._id,'delete'); //aqui le paso el id
         this.dataSelectedProducts.updateTotal();
     }else{
         objProduct.quantity=1; 
