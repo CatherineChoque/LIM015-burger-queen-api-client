@@ -13,11 +13,11 @@ export class ContainerProductosComponent implements OnInit {
   public dataProducts:any=[];
 
   public optionsCategory:any=[
-    {id: 1,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
-    {id: 2, nameCategory:'Hamburguesas',value:false,icon:"fas fa-mug-hot"},
-    {id: 3, nameCategory:'Almuerzos',value:false,icon:"fas fa-mug-hot"},
-    {id: 4,nameCategory:'Bebidas',value:false,icon:"fas fa-mug-hot"},
-    {id: 5,nameCategory:'Otros',value:false,icon:"fas fa-mug-hot"},
+    {id: 0,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
+    {id: 1, nameCategory:'Burger',value:false,icon:"fas fa-hamburger"},
+    {id: 2, nameCategory:'Almuerzos',value:false,icon:"fas fa-drumstick-bite"},
+    {id: 3,nameCategory:'Bebidas',value:false,icon:"fas fa-glass-whiskey"},
+    {id: 4,nameCategory:'Otros',value:false,icon:"fas fa-utensils"},
   ];
   
   indexAnterior:number=-1
@@ -28,7 +28,7 @@ export class ContainerProductosComponent implements OnInit {
 
   loadProducts(nameCategory:string,index:number){
     let dataByCategory:any=[];
-    this.apiService.getProducts().subscribe(dataProducts => {
+    this.apiService.getProductsWaiter().subscribe(dataProducts => {
       dataProducts.forEach(dataProduct => {
         dataByCategory.push(dataProduct);
       })
@@ -40,13 +40,12 @@ export class ContainerProductosComponent implements OnInit {
 
     if(this.indexAnterior!=-1){
       this.optionsCategory[this.indexAnterior].value = false;
-      this.indexAnterior=index;
     }
-
+    this.indexAnterior=index;
   }
 
   ngOnInit(): void {
-    this.loadProducts('Desayunos',1);
+    this.loadProducts('Desayunos',0);
   }
   
   modifyProducts(objProduct:any){

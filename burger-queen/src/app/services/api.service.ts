@@ -24,8 +24,13 @@ export class ApiService {
     return this.http.get<ResponseGetUser[]>(this.direccion);
   }
 
-  getProducts():Observable<ResponseGetProducts[]>{
+  getProductsWaiter():Observable<ResponseGetProducts[]>{
     this.direccion=this.url + 'products?limit=0';
+    return this.http.get<ResponseGetProducts[]>(this.direccion);
+  }
+
+  getProductsAdmin(numPag:number):Observable<ResponseGetProducts[]>{
+    this.direccion=this.url + 'products?page='+numPag;
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
 
