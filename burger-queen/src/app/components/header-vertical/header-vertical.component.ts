@@ -16,9 +16,10 @@ export class HeaderVerticalComponent implements OnInit {
   public optionUsers = false;
   public optionRecord = false;
 
-  constructor( private router: Router) { 
 
+  constructor( private router: Router) { 
   }
+
 
   ngOnInit(): void {
     if(this.rol == "admin"){
@@ -29,6 +30,7 @@ export class HeaderVerticalComponent implements OnInit {
       this.optionEnvoy = true;
     }
   }
+
   
   modifyOption(option:string){
     console.log(option);

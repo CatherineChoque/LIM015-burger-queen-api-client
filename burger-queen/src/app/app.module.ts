@@ -20,6 +20,7 @@ import { ContainerProductsComponent } from './components/view-admin/container-pr
 import { ContainerUsersComponent } from './components/view-admin/container-users/container-users.component';
 import { ContainerRecordComponent } from './components/view-admin/container-record/container-record.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     FormsModule,
     ReactiveFormsModule
   ],
+
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -55,5 +57,6 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
       multi: true
     }
   ],
+
 })
 export class AppModule { }
