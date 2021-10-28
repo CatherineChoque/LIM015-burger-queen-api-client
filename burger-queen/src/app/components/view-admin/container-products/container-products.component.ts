@@ -18,10 +18,9 @@ export class ContainerProductsComponent implements OnInit {
 
   loadProducts(numPag:number){
     this.apiService.getProductsAdmin(numPag).subscribe(dataProducts => {
-      dataProducts.forEach(dataProduct => {
-        this.dataProductsByPag.push(dataProduct);
+      this.dataProductsByPag = dataProducts.sort((a,b) => {
+        return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt);
       })
-      console.log(this.dataProductsByPag);
     }); 
   }
 

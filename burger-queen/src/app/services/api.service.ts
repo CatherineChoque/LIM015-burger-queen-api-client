@@ -3,6 +3,7 @@ import { HttpClient,HttpParams } from '@angular/common/http';
 import { ResponseLogin, ResponseGetUser} from '../response/response.login'
 import { ResponseGetProducts} from '../response/response.products'
 import { Observable } from 'rxjs';
+import { ResponseGetUsers } from '../response/response.users';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,11 @@ export class ApiService {
   getProductsAdmin(numPag:number):Observable<ResponseGetProducts[]>{
     this.direccion=this.url + 'products?page='+numPag;
     return this.http.get<ResponseGetProducts[]>(this.direccion);
+  }
+
+  getUsersAdmin(numPag:number):Observable<ResponseGetUsers[]>{
+    this.direccion=this.url + 'users?page='+numPag;
+    return this.http.get<ResponseGetUsers[]>(this.direccion);
   }
 
 }
