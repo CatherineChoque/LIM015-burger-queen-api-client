@@ -66,7 +66,6 @@
                         <table class="table color-myGray-text">
                             <thead>
                                 <tr>
-                                  <th scope="col">ID</th>
                                   <th scope="col">Nombre</th>
                                   <th scope="col">Imagen</th>
                                   <th scope="col">Precio</th>
@@ -76,35 +75,25 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Cafe express</td>
-                                  <td><img src="https://cdn.pixabay.com/photo/2017/09/18/11/52/coffe-2761469_960_720.jpg" class="rounded  myImage" alt="taza-de-cafe"></td>
-                                  <td>s/9.50</td>
-                                  <td>Desayunos</td>
-                                  <td>11/12/2021</td>
-                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Jugo de fresa</td>
-                                  <td><img src="https://cdn.pixabay.com/photo/2017/07/17/16/56/and-juice-2513036_960_720.jpg" class="rounded  myImage" alt="taza-de-cafe"></td>
-                                  <td>s/12.50</td>
-                                  <td>Desayunos</td>
-                                  <td>12/12/2021</td>
-                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Jugo de Bayas</td>
-                                  <td><img src="https://cdn.pixabay.com/photo/2018/02/23/16/58/milk-3176015_960_720.jpg" class="rounded  myImage" alt="taza-de-cafe"></td>
-                                  <td>s/12.50</td>
-                                  <td>Desayunos</td>
-                                  <td>12/12/2021</td>
+                                <tr *ngFor="let product of dataProductsByPag">
+                                  <td>{{ product.name }}</td>
+                                  <td><img src="{{ product.image }}" class="rounded  myImage" alt="taza-de-cafe"></td>
+                                  <td>{{ product.price|currency:'symbol': 'S/ ' }}</td>
+                                  <td>{{ product.type }}</td>
+                                  <td>{{ product.updatedAt| date: 'dd-MM-yyyy' }}</td>
                                   <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
                                 </tr>
                               </tbody>
                         </table>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                          <div class="btn-group ml-1" role="group" aria-label="Basic outlined example">
+                            <button type="button" class="btn btn-outline-primary">Atras</button>
+                            <button type="button" class="btn btn-outline-primary">Siguiente</button>
+                          </div>
+                        </div>
                       </div>
                   </div>
 
