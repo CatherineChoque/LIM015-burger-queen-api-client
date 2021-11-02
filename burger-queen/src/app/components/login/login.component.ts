@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(private serviceLogin: ApiService, private router: Router, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
   }
 
   sendEmailPassword(values: any) {
@@ -30,14 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   getInfoUser(email: string) {
-    this.serviceLogin.getUserAuth(email).subscribe(response => {
-      let rol;
-      const dataUserAuth = Object.values(response);
-      localStorage.setItem('idUserAuth', JSON.stringify(dataUserAuth[0]));
-      const admin = dataUserAuth[3].admin;
-      rol = (admin) ? "admin" : dataUserAuth[3].name;
+    this.serviceLogin.getUserAuth(email).subscribe(rol => {
       localStorage.setItem('rol', rol);
-
       switch (rol) {
         case "mesero":
           this.router.navigateByUrl('/waiter/menu');
@@ -46,10 +42,11 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/chef/envoy');
           break;
         default:
-          this.router.navigateByUrl('/admin/products');
-      }
+          this.router.navigateByUrl('/admin/products')
+        }
+    });
 
-      this.loadGif = false;
-    })
+    this.loadGif = false;
+
   }
 }

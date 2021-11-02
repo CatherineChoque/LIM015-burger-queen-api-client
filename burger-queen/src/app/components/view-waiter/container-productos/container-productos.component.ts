@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
 import { ApiService} from 'src/app/services/api.service';
-
+import {filter,map,tap,toArray} from "rxjs/operators";
 @Component({
   selector: 'app-container-productos',
   templateUrl: './container-productos.component.html',
@@ -11,7 +11,6 @@ export class ContainerProductosComponent implements OnInit {
 
   public productsSelected;
   public dataProducts:any=[];
-
   public optionsCategory:any=[
     {id: 0,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
     {id: 1, nameCategory:'Burger',value:false,icon:"fas fa-hamburger"},
@@ -25,19 +24,16 @@ export class ContainerProductosComponent implements OnInit {
   constructor(public dataSelectedProducts: DataProductsSelectedService, public apiService: ApiService) {
     this.productsSelected = dataSelectedProducts.getDataSelectProducts();
   }
-
+   
   loadProducts(nameCategory:string,index:number){
-    let dataByCategory:any=[];
-    this.apiService.getProductsWaiter().subscribe(dataProducts => {
-      dataProducts.forEach(dataProduct => {
-        dataByCategory.push(dataProduct);
-      })
-      dataByCategory=dataByCategory.filter((product: { type: string; }) => product.type == nameCategory)
-      this.dataProducts=dataByCategory;
-    }); 
+    this.apiService.getProductsWaiter(nameCategory)
+    .subscribe(data => this.dataProducts=data); 
+    this.changeOptionCategory(index)
+  }
 
+  /*Para actualizar la categoria selecionada en la DOM (pintar color naranja) */
+  changeOptionCategory(index:number){
     this.optionsCategory[index].value = true;
-
     if(this.indexAnterior!=-1){
       this.optionsCategory[this.indexAnterior].value = false;
     }

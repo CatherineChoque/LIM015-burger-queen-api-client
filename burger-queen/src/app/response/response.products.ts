@@ -1,20 +1,8 @@
-export interface ResponseGetProducts{
-    [x: string]: any;
-  
-    /*  _id:string;
-      email:string; 
-      password:string;
-      roles:any;
-      createdAt:any;*/
+export interface ResponseGetProducts{  
+      _id: string,
+      name: string,
+      price: number;
+      image: string,
+      type: string, 
+      updatedAt:any
   }
-
-export interface ResponsePostProducts{
-  [x: string]: any;
-
-  /*  _id:string;
-      name:string; 
-      price:string;
-      image:any;
-      type:any;
-      */
-}
