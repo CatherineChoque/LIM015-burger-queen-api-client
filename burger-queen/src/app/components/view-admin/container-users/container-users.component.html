@@ -10,40 +10,45 @@
                         <button class="btn button-mySecundary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar Usuarios</button>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade mt-5" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content color-myGray-text">
-                          <div class="modal-header px-4">
-                            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body px-4">
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Correo electronico</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <form #formUser="ngForm" (submit)="createNewUser(formUser.value)" ngNativeValidate>
+                      <div class="modal fade mt-5" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content color-myGray-text">
+                            <div class="modal-header px-4">
+                              <h5 class="modal-title" id="staticBackdropLabel">Nuevo Usuario</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()" #modalClose></button>
                             </div>
-                            <div class="mb-3 row">
-                              <div class="col">
-                                <label for="exampleInputEmail1" class="form-label">Rol</label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                  <option selected>Seleccione...</option>
-                                  <option value="mesero">Mesero</option>
-                                  <option value="cocinero">Cocinero</option>
-                                  <option value="admin">Admin</option>
-                                </select>
+                            <div class="modal-body px-4">
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Correo electronico</label>
+                                <input name="email" type="email" autocomplete="off" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ngModel required>
                               </div>
-                              <div class="col">
-                                <label for="exampleInputEmail1" class="form-label">Contraseña</label>
-                                  <input type="text" class="form-control" aria-label="Text input with checkbox">
+                              <div class="mb-3 row">
+                                <div class="col">
+                                  <label for="exampleInputEmail1" class="form-label">Rol</label>
+                                  <select name="selectRol" ngModel class="form-select" id="inputGroupSelect01" required>
+                                    <option value="" selected>Seleccione...</option>
+                                    <option value="mesero">Mesero</option>
+                                    <option value="cocinero">Cocinero</option> 
+                                    <option value="admin">Admin</option>
+                                  </select>
+                                </div>
+                                <div class="col">
+                                  <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                                    <input name="password" autocomplete="off" type="text" class="form-control" aria-label="Text input with checkbox" ngModel required>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn button-mySecundary">Guardar</button>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn button-mySecundary">
+                                <span *ngIf="loadGif == false">Guardar</span> 
+                                <span *ngIf="loadGif">Procesando<img src="../../../assets/img/load.gif" alt="" width="17" height="17"></span>
+                            </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                     <!-- tabla de usuarios -->
                     <div class="table-responsive">
                         <table class="table color-myGray-text">
@@ -56,7 +61,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let user of dataUsersByPag">
+                                <tr *ngFor="let user of dataUsersByPag | paginate: { itemsPerPage: 10, currentPage: p }">
                                   <td>{{ user.email }}</td>
                                   <td *ngIf="user.roles.admin == false">{{ user.roles.name }}</td>
                                   <td *ngIf="user.roles.admin">admin</td>
@@ -67,13 +72,7 @@
                         </table>
                       </div>
                       <div class="row">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
-                          <div class="btn-group ml-1" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary">Atras</button>
-                            <button type="button" class="btn btn-outline-primary">Siguiente</button>
-                          </div>
-                        </div>
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
                       </div>
                   </div>
 

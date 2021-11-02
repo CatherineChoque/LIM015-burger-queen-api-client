@@ -47,13 +47,13 @@ export class ApiService {
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
 
-  getUsersAdmin(numPag: number): Observable<ResponseGetUsers[]> {
-    this.direccion = this.url + 'users?page=' + numPag;
+  getUsersAdmin(): Observable<any> {
+    this.direccion = this.url + 'users?limit=0';
     return this.http.get<ResponseGetUsers[]>(this.direccion);
   }
 
 
-  postProductAdmin(form:any):Observable<ResponseGetProducts>{
+  postProductAdmin(form:any):Observable<any>{
     this.direccion=this.url + 'products';
     return this.http.post<ResponseGetProducts>(this.direccion, form);
   }
@@ -65,7 +65,7 @@ export class ApiService {
 
   addNewOrder(objOrder: any): Observable<any>{
     this.direccion = this.url + 'orders';
-    return this.http.post<ResponseOrder[]>(this.direccion, objOrder)
+    return this.http.post<ResponseOrder[]>(this.direccion, objOrder);
   }
 
   getOrders(status:string): Observable<any>{
@@ -81,6 +81,11 @@ export class ApiService {
         return elm.status == status
       }))
     );
+  }
+
+  addNewUser(objUser:any):Observable<any>{
+    this.direccion = this.url + 'users';
+    return this.http.post<ResponseGetUser>(this.direccion, objUser);
   }
 
 }
