@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataProductsSelectedService {
   arraySeletectProducts: any = [];
   total: number = 0;
@@ -28,7 +29,7 @@ export class DataProductsSelectedService {
   updateTotal() {
     if (this.arraySeletectProducts.length == 0) {
       this.total = 0;
-    } else {
+    }else {
       this.total = 0;
       this.arraySeletectProducts.forEach((product: { price: any; quantity: any }) => {
         this.total = this.total + Number(product.price) * Number(product.quantity);

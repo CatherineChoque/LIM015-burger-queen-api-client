@@ -3,11 +3,9 @@ export interface ResponseLogin{
 }
 
 export interface ResponseGetUser{
-  [x: string]: any;
-
-  /*  _id:string;
+   _id:string;
     email:string; 
     password:string;
     roles:any;
-    createdAt:any;*/
+    createdAt:any;
 }

@@ -14,31 +14,29 @@
               </ul>
 
               <div class="tab-content">
+                
                 <div class="tab-pane fade show active" id="enEspera-tab" role="tabpanel" aria-labelledby="enEspera">
 
                   <div class="row">
-                    <div class="col-sm-6 col-lg-3">
-                      <div class="card mt-5 border-2 rounded-3">
+
+                    <div *ngFor="let order of allOrders"  class="col-sm-6 col-lg-3">
+                      <div class="card mt-5 border-2 rounded-3 shadow">
                         <div class="card-body color-myGray">
                           <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                              <h5><span class="badge color-myPrimary-v2 rounded-3">001</span></h5>
-                              <h6 class="color-myGray-text ms-2">Paula Ramirez</h6>
+                              <h6 class="color-myGray-text ms-2">{{ order.client }}</h6>
                             </div>
                             <div class="">
-                              <h5><span class="badge color-mySecondary color-myGray-text rounded-3">9:30am</span></h5>
+                              <h5><span class="badge color-mySecondary color-myGray-text rounded-3">{{ order.dateProcessed | date: 'h:mm a' }}</span></h5>
                             </div>
                           </div>
                           <hr>
-                          <li class="d-flex justify-content-between align-items-center color-myGray-text">
-                            Cafe
-                            <span class="badge color-myPrimary-v2 rounded-3">1</span>
+                          <li *ngFor="let product of order.products" class="d-flex justify-content-between align-items-center color-myGray-text mt-2">
+                            {{product.productId.name}}
+                            <span class="badge color-myPrimary-v2 rounded-3">{{product.qty}}</span>
                           </li>
-                          <li class="d-flex justify-content-between align-items-center color-myGray-text">
-                            Juego de fresa
-                            <span class="badge color-myPrimary-v2 rounded-3">1</span>
-                          </li>
-                          <br>
+                          <p class="text-note mt-2"> <i class="far fa-sticky-note"></i> {{ order.note }}</p>
+
                           <div class="d-flex justify-content-end">
                             <i class="fa fa-pencil icon-myEdit"></i>
                             <i class="ms-3 fa fa-trash-o icon-myRemove"></i>
@@ -47,35 +45,6 @@
                       </div>
                     </div>
 
-                    <div class="col-sm-6 col-lg-3">
-                      <div class="card mt-5 border-2 rounded-3">
-                        <div class="card-body color-myGray">
-                          <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                              <h5><span class="badge color-myPrimary-v2 rounded-3">001</span></h5>
-                              <h6 class="color-myGray-text ms-2">Paula Ramirez</h6>
-                            </div>
-                            <div class="">
-                              <h5><span class="badge color-mySecondary color-myGray-text rounded-3">9:30am</span></h5>
-                            </div>
-                          </div>
-                          <hr>
-                          <li class="d-flex justify-content-between align-items-center color-myGray-text">
-                            Cafe
-                            <span class="badge color-myPrimary-v2 rounded-3">1</span>
-                          </li>
-                          <li class="d-flex justify-content-between align-items-center color-myGray-text">
-                            Juego de fresa
-                            <span class="badge color-myPrimary-v2 rounded-3">1</span>
-                          </li>
-                          <br>
-                          <div class="d-flex justify-content-end">
-                            <i class="fa fa-pencil icon-myEdit"></i>
-                            <i class="ms-3 fa fa-trash-o icon-myRemove"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
 
                 </div>
@@ -87,7 +56,6 @@
                         <div class="card-body color-myGray">
                           <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                              <h5><span class="badge color-myPrimary rounded-3">004</span></h5>
                               <h6 class="color-myGray-text ms-2">Rocio Ramirez</h6>
                             </div>
                             <div class="">

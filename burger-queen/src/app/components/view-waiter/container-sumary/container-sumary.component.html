@@ -4,9 +4,9 @@
   </span>
 </h5>
 
-<form class="bg-light ps-3 pe-3 pt-1">
+<form class="bg-light ps-3 pe-3 pt-1" #formSumary="ngForm" (submit)="sendOrder(formSumary.value)" ngNativeValidate>
   <div class="row">
-    <input type="text" class="form-control" id="cliente" placeholder="Nombre Cliente" required />
+    <input type="text" class="form-control" id="cliente" name="nameClient" ngModel placeholder="Nombre Cliente" required />
   </div>
   <div class="row mt-3">
     <div class="table-responsive">
@@ -56,10 +56,13 @@
     </div>
   </div>
   <div class="row">
-    <textarea class="form-control" id="Textarea1" rows="3" placeholder="Notas"></textarea>
+    <textarea class="form-control"  name="note" ngModel rows="3" placeholder="Notas"></textarea>
   </div>
   <div class="row">
-    <button class="btn btn-orange2 mt-3">Enviar Pedido</button>
-    <button class="btn  btn-outline-secondary mt-2" (click)="cancelOrder()" type="button">Cancelar</button>
+    <button class="btn btn-orange2 mt-3" type="submit">
+      <span *ngIf="loadGif == false">Enviar Orden</span> 
+      <span *ngIf="loadGif">Procesando<img src="../../../../assets/img/load.gif" alt="" width="17" height="17"></span>
+    </button>
+    <button class="btn  btn-outline-secondary mt-2" (click)="cleanOrder()" type="button">Cancelar</button>
   </div>
 </form>
