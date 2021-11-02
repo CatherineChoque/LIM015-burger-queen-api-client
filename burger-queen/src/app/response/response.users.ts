@@ -1,3 +1,6 @@
 export interface ResponseGetUsers{
-    [x: string]: any;
+    _id:string,
+    email:string,
+    roles:any,
+    updatedAt:Date
 }

@@ -14,6 +14,8 @@ export class ContainerProductsComponent implements OnInit {
   p: number = 1;
   public dataProductsByPag:any = [];
   public loadGif = false;
+  private urldefault = 'https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png';
+  public picture = this.urldefault;
   /*arrayProduct: Object = {
     _id: '',
     name: '',
@@ -62,6 +64,24 @@ export class ContainerProductsComponent implements OnInit {
   
   clearForm(){
     this.form.reset();
+  }
+  
+  renderImage(url:string){
+    if(url == ''){
+      this.picture = this.urldefault;
+    }else{
+      fetch(url).then(res => {
+        if(res.status == 404 || res.status == 500){
+          this.picture = this.urldefault;
+          this.alertify.error('Error: enlace roto');
+        }else{
+          this.picture = url;
+        }
+      }).catch(() => {
+        this.picture = this.urldefault;
+        this.alertify.error('Error: hubo un error al validar el enlace');
+      })
+    }
   }
 
   //eliminar producto
