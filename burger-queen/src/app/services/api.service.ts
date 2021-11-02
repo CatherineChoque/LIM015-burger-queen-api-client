@@ -30,8 +30,8 @@ export class ApiService {
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
 
-  getProductsAdmin(numPag:number):Observable<ResponseGetProducts[]>{
-    this.direccion=this.url + 'products?page='+numPag;
+  getProductsAdmin():Observable<ResponseGetProducts[]>{
+    this.direccion=this.url + 'products?limit=0';
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
 
@@ -44,4 +44,9 @@ export class ApiService {
     this.direccion=this.url + 'products';
     return this.http.post<ResponsePostProducts>(this.direccion, form);
   }
+  /*
+  deleteProductAdmin(id:any):Observable<any>{
+    this.direccion=this.url + 'products'+id;
+    return this.http.delete<ResponseGetProducts[]>(this.direccion);
+  }*/
 }

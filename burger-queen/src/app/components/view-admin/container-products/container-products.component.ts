@@ -11,8 +11,16 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./container-products.component.css'],
 })
 export class ContainerProductsComponent implements OnInit {
+  p: number = 1;
   public dataProductsByPag:any = [];
   public loadGif = false;
+  /*arrayProduct: Object = {
+    _id: '',
+    name: '',
+    price: 0,
+    image: '',
+    type: ''
+  }*/
 
   constructor(public apiService: ApiService, private alertify: AlertifyService) {
   }
@@ -24,11 +32,11 @@ export class ContainerProductsComponent implements OnInit {
   modal!: ElementRef;
 
   ngOnInit(): void {
-    this.loadProducts(3)
+    this.loadProducts()
   }
 
-  loadProducts(numPag:number){
-    this.apiService.getProductsAdmin(numPag).subscribe(dataProducts => {
+  loadProducts(){
+    this.apiService.getProductsAdmin().subscribe(dataProducts => {
       this.dataProductsByPag = dataProducts.sort((a,b) => {
         return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt);
       })
@@ -41,8 +49,9 @@ export class ContainerProductsComponent implements OnInit {
       this.apiService.postProductAdmin(values).subscribe(() => {
       this.clearForm();
       this.loadGif = false; // parar gif
-      this.closeModal();// cerrar
+      this.modal.nativeElement.click();// cerrar
       this.alertify.success('Creaste un nuevo producto'); // alert
+      this.loadProducts();
     }, error => {
       this.loadGif = false;
       this.alertify.error('Error: ' + error.error.message);
@@ -50,14 +59,29 @@ export class ContainerProductsComponent implements OnInit {
     );
    
   }
-
+  
   clearForm(){
     this.form.reset();
   }
 
-  //cerrar
-  closeModal(): void {
-    this.modal.nativeElement.click();
+  //eliminar producto
+  /*
+  deleteProduct(id: any){
+    this.removeItem(id)
+    this.apiService.deleteProductAdmin(id).subscribe((response) => {
+        this.arrayProduct = response
+        this.loadProducts(3);
+      }
+    )
   }
+
+  removeItem(id: any){
+    let objIndex = this.dataProductsByPag.findIndex(((obj: any) => {
+      obj._id === id;
+    }));
+    if(objIndex != -1){
+      this.dataProductsByPag.splice(objIndex, 1)
+    }
+  }*/
   
 }

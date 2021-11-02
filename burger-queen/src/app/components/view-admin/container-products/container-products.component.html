@@ -81,25 +81,22 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let product of dataProductsByPag">
+                                <tr *ngFor="let product of dataProductsByPag | paginate: { itemsPerPage: 10, currentPage: p }">
                                   <td>{{ product.name }}</td>
                                   <td><img src="{{ product.image }}" class="rounded  myImage" alt="taza-de-cafe"></td>
                                   <td>{{ product.price|currency:'symbol': 'S/ ' }}</td>
                                   <td>{{ product.type }}</td>
                                   <td>{{ product.updatedAt| date: 'dd-MM-yyyy' }}</td>
-                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
+                                  <td>
+                                    <i class="fa fa-pencil icon-myEdit"></i>
+                                    <i class="ms-3 fa fa-trash-o icon-myRemove" ></i> <!--(click)="deleteProduct(product._id)"-->
+                                  </td>
                                 </tr>
                               </tbody>
                         </table>
                       </div>
                       <div class="row">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
-                          <div class="btn-group ml-1" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary">Atras</button>
-                            <button type="button" class="btn btn-outline-primary">Siguiente</button>
-                          </div>
-                        </div>
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
                       </div>
                   </div>
 
