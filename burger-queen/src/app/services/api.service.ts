@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ResponseLogin, ResponseGetUser } from '../response/response.login'
+
+import { HttpClient,HttpParams } from '@angular/common/http';
+import { ResponseLogin, ResponseGetUser} from '../response/response.login'
 import { ResponseGetProducts } from '../response/response.products'
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
@@ -41,8 +42,8 @@ export class ApiService {
       );
   }
 
-  getProductsAdmin(numPag: number): Observable<ResponseGetProducts[]> {
-    this.direccion = this.url + 'products?page=' + numPag;
+  getProductsAdmin():Observable<ResponseGetProducts[]>{
+    this.direccion=this.url + 'products?limit=0';
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
 
@@ -50,6 +51,17 @@ export class ApiService {
     this.direccion = this.url + 'users?page=' + numPag;
     return this.http.get<ResponseGetUsers[]>(this.direccion);
   }
+
+
+  postProductAdmin(form:any):Observable<ResponseGetProducts>{
+    this.direccion=this.url + 'products';
+    return this.http.post<ResponseGetProducts>(this.direccion, form);
+  }
+  /*
+  deleteProductAdmin(id:any):Observable<any>{
+    this.direccion=this.url + 'products'+id;
+    return this.http.delete<ResponseGetProducts[]>(this.direccion);
+  }*/
 
   addNewOrder(objOrder: any): Observable<any>{
     this.direccion = this.url + 'orders';

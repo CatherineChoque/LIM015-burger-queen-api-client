@@ -20,6 +20,7 @@ import { ContainerProductsComponent } from './components/view-admin/container-pr
 import { ContainerUsersComponent } from './components/view-admin/container-users/container-users.component';
 import { ContainerRecordComponent } from './components/view-admin/container-record/container-record.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
 
   bootstrap: [AppComponent],
