@@ -9,58 +9,64 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn button-myPrimary me-md-2" type="button"  data-bs-toggle="modal" data-bs-target="#staticModalProducts">Agregar Producto</button>
                     </div>
+                    
                     <!-- Modal -->
-                    <div class="modal fade mt-5" id="staticModalProducts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content color-myGray-text">
-                          <div class="modal-header px-4">
-                            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body px-4">
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <form #formProduct="ngForm" (submit)="createNewproduct(formProduct.value)" ngNativeValidate name="formProduct">
+                      <div class="modal fade mt-5" id="staticModalProducts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content color-myGray-text">
+                            <div class="modal-header px-4">
+                              <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()" #modalClose></button>
                             </div>
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Categoria</label>
-                              <select class="form-select" id="inputGroupSelect01">
-                                <option selected>Seleccione...</option>
-                                <option value="desayunos">Desayunos</option>
-                                <option value="hamburguesas">Hamburguesas</option>
-                                <option value="acompañamientos">Acompañamientos</option>
-                                <option value="bebidas">Bebidas</option>
-                                <option value="otros">Otros</option>
-                              </select>
-                            </div>
-                            <div class="mb-3 row">
-                              <div class="col">
-                                <label for="exampleInputEmail1" class="form-label">Precio Unitario</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div class="modal-body px-4">
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
+                                <input type="text" name="name" id="name" ngModel class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                               </div>
-                              <div class="col">
-                                <label for="exampleInputEmail1" class="form-label">URL imagen</label>
-                                <div class="input-group mb-3">
-                                  <div class="input-group-text">
-                                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Categoria</label>
+                                <select name="type" id="type" ngModel class="form-select" id="inputGroupSelect01" required>
+                                  <option selected>Seleccione...</option>
+                                  <option value="Desayunos">Desayunos</option>
+                                  <option value="Burger">Burger</option>
+                                  <option value="Almuerzos">Almuerzos</option>
+                                  <option value="Bebidas">Bebidas</option>
+                                  <option value="Otros">Otros</option>
+                                </select>
+                              </div>
+                              <div class="mb-3 row">
+                                <div class="col">
+                                  <label for="exampleInputEmail1" class="form-label">Precio Unitario</label>
+                                  <input name="price" step="any" id="price" ngModel type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                </div>
+                                <div class="col">
+                                  <label for="exampleInputEmail1" class="form-label">URL imagen</label>
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                      <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                                    </div>
+                                    <input name="image" id="image" ngModel type="text" class="form-control" aria-label="Text input with checkbox" required>
                                   </div>
-                                  <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Imagen</label>
+                                <div>
+                                  <img src="https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png" class="rounded float-start img-fluid" width="30%" alt="imagen-producto">
                                 </div>
                               </div>
                             </div>
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Imagen</label>
-                              <div>
-                                <img src="https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png" class="rounded float-start img-fluid" width="30%" alt="imagen-producto">
-                              </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn button-myPrimary">
+                                <span *ngIf="loadGif == false">Guardar</span> 
+                                <span *ngIf="loadGif">Procesando<img src="../../../assets/img/load.gif" alt="" width="17" height="17"></span>
+                              </button>
                             </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn button-myPrimary">Guardar</button>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                     <!-- tabla de productos -->
                     <div class="table-responsive">
                         <table class="table color-myGray-text">
