@@ -12,7 +12,9 @@
             type="button"
             role="tab"
             aria-controls="tabContenido"
-            aria-selected="true" (click)="getOrderbyStatus('pending')">
+            aria-selected="true"
+            (click)="getOrderbyStatus('pending')"
+          >
             En espera
           </button>
         </li>
@@ -25,7 +27,9 @@
             type="button"
             role="tab"
             aria-controls="tabContenido"
-            aria-selected="false" (click)="getOrderbyStatus('preparing')">
+            aria-selected="false"
+            (click)="getOrderbyStatus('preparing')"
+          >
             En preparacion
           </button>
         </li>
@@ -34,32 +38,46 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="tab" role="tabpanel">
           <div class="row">
+
+            <h6 *ngIf="allOrders.length == 0" class="text-secondary mt-5 text-center">
+              <i class="far fa-sticky-note"></i> {{optionTabMenssage}}
+            </h6>
+
             <div *ngFor="let order of allOrders" class="col-sm-6 col-lg-3">
               <div class="card mt-5 border-2 rounded-3 shadow">
                 <div class="card-body color-myGray">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div class="d-flex align-items-center">
                       <h6 class="color-myGray-text ms-2">{{ order.client }}</h6>
                     </div>
                     <div>
                       <h5>
-                        <span class="
+                        <span
+                          class="
                             badge
                             color-mySecondary color-myGray-text
-                            rounded-3">{{ order.dateProcessed | date: "h:mm a" }}</span>
+                            rounded-3
+                          "
+                          >{{ order.dateProcessed | date: "h:mm a" }}</span
+                        >
                       </h5>
                     </div>
                   </div>
                   <hr />
                   <li
                     *ngFor="let product of order.products"
-                     class="
+                    class="
                       d-flex
                       justify-content-between
                       align-items-center
                       color-myGray-text
-                      mt-2"> {{ product.productId.name }}
-                    <span class="badge color-myPrimary-v2 rounded-3">{{product.qty}}</span>
+                      mt-2
+                    ">{{ product.productId.name }}
+                    <span class="badge color-myPrimary-v2 rounded-3">{{
+                      product.qty
+                    }}</span>
                   </li>
                   <p class="text-note mt-2">
                     <i class="far fa-sticky-note"></i> {{ order.note }}
@@ -67,7 +85,12 @@
 
                   <div class="d-flex justify-content-end">
                     <i class="fa fa-pencil icon-myEdit"></i>
-                    <i class="ms-3 fa fa-trash-o icon-myRemove"></i>
+                    <i 
+                      data-bs-toggle="modal" 
+                      data-bs-target="#modalDelete"
+                      class="ms-3 fa fa-trash-o icon-myRemove"
+                      (click)="cancelOrder(order._id,order.client)"
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -75,7 +98,48 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- modal eliminar -->
+    <div
+      class="modal fade mt-5"
+      id="modalDelete"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content color-myGray-text">
+          <div class="modal-header">
+            <h5 class="modal-title">Cancelar Orden</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="cleanModalDelete()"
+              #modalCloseDelete
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert">
+              Estas seguro de cancelar la orden para
+              <strong>{{ clientTemporal }}</strong
+              >, esta acción es irreversible!
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="confirmDelete()">
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

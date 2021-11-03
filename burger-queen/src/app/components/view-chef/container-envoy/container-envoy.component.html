@@ -34,6 +34,11 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="tab" role="tabpanel">
           <div class="row">
+
+            <h6 *ngIf="allOrders.length == 0" class="text-secondary mt-5 text-center">
+              <i class="far fa-sticky-note"></i>{{messageOrder}}
+            </h6>
+
             <div *ngFor="let order of allOrders" class="col-sm-6 col-lg-3">
               <div class="card mt-5 border-2 rounded-3 shadow">
                 <div class="card-body color-myGray">
@@ -65,8 +70,8 @@
                     <i class="far fa-sticky-note"></i> {{ order.note }}
                   </p>
 
-                  <button  *ngIf="order.status == 'pending'" type="button" class="btn button-myPrimary col-12 btn-xs text-white">Pasar a preparación</button>
-                  <button  *ngIf="order.status == 'preparing'" type="button" class="btn button-myPrimary col-12 btn-xs text-white">Para servir</button>
+                  <button  *ngIf="order.status == 'pending'" type="button" class="btn btn-orange2 col-12 btn-xs text-white" (click)="changeStatusOrder('preparing',order._id)">Pasar a preparación</button>
+                  <button  *ngIf="order.status == 'preparing'" type="button" class="btn btn-success-2 col-12 btn-xs text-white" (click)="changeStatusOrder('delivering',order._id)">Para servir</button>
                   
                 </div>
               </div>

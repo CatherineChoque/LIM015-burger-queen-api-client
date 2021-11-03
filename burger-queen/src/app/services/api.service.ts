@@ -91,6 +91,11 @@ export class ApiService {
       }))
     );
   }
+  
+  updateStatusOrder(id:string,status:any):Observable<any>{
+    this.direccion=this.url + 'orders/'+ id;
+    return this.http.put<ResponseOrder[]>(this.direccion, status);
+  }
 
   addNewUser(objUser:any):Observable<any>{
     this.direccion = this.url + 'users';
