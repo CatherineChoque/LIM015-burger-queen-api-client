@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService} from 'src/app/services/api.service';
 import { AlertifyService } from 'src/app/services/alertify/alertify-service.service';
 import { ViewChild, ElementRef } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -19,14 +18,15 @@ export class ContainerProductsComponent implements OnInit {
   public picture = this.urldefault;
   private idTemporal = '';
   public nameTemporal = '';
-  public titleModal = '';
+  public titleModal = 'Crear producto';
 
   constructor(private fb: FormBuilder, public apiService: ApiService, private alertify: AlertifyService) {
   }
-
+  // cerrar el modal de create and edit
   @ViewChild('modalClose')
   modal!: ElementRef;
 
+  // 
   @ViewChild('modalCloseDelete')
   modalDelete!: ElementRef;
 
@@ -127,7 +127,7 @@ export class ContainerProductsComponent implements OnInit {
   // cargar data para editar
   loadDataProduct(objProduct:any){
     this.idTemporal = objProduct._id;
-    //console.log(objProduct);
+    this.titleModal = 'Editar Producto';
     this.formProduct.patchValue({
       name: objProduct.name,
       type: objProduct.type,
@@ -135,6 +135,10 @@ export class ContainerProductsComponent implements OnInit {
       image: objProduct.image
      });
      this.picture = objProduct.image;
+  }
+
+  openModal(){
+    this.titleModal = 'Crear nuevo Producto';
   }
   
 }

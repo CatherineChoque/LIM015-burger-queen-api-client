@@ -39,10 +39,12 @@
                                   <tr *ngFor="let record of dataRecordsByPag | paginate: { itemsPerPage: 10, currentPage: p }">
                                     <td>{{record.client}}</td>
                                     <td><a href="" class="pe-auto color-myPrimary-text" data-bs-toggle="modal" data-bs-target="#modalDetail">Detalle de pedido</a></td>
-                                    <td>{{record.total}}</td>
-                                    <!-- class="badge span-on-hold" | class="badge span-in-preparation" | class="badge span-ready" | class="badge span-finalized" | class="badge span-cancelled"-->
+                                    <td>{{record.total|currency:'symbol': 'S/ '}}</td>
                                     <td *ngIf="record.status == 'pending'"><span class="badge span-on-hold">En espera</span></td>
-                                    <td *ngIf="record.status == 'preparing'"><span class="badge span-in-preparation">En Preparacion</span></td> 
+                                    <td *ngIf="record.status == 'preparing'"><span class="badge span-in-preparation">En Preparacion</span></td>
+                                    <td *ngIf="record.status == 'delivering'"><span class="badge span-ready">Listo para servir</span></td>
+                                    <td *ngIf="record.status == 'delivered'"><span class="badge span-finalized">Finalizado</span></td>
+                                    <td *ngIf="record.status == 'canceled'"><span class="badge span-cancelled">Cancelado</span></td> 
                                     <td>{{record.dateEntry| date: 'medium'}}</td>
                                   </tr>
                               </tbody>
