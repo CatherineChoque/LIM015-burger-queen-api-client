@@ -7,26 +7,25 @@
 
                   <div class="row  mt-4">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn button-myPrimary me-md-2" type="button"  data-bs-toggle="modal" data-bs-target="#staticModalProducts">Agregar Producto</button>
+                        <button class="btn button-myPrimary me-md-2 text-white" type="button"  data-bs-toggle="modal" data-bs-target="#staticModalProducts" (click)="openModal()">Agregar Producto</button>
                     </div>
-                    
                     <!-- Modal -->
-                    <form #formProduct="ngForm" (submit)="createNewproduct(formProduct.value)" ngNativeValidate name="formProduct">
+                    <form [formGroup]="formProduct" (ngSubmit)="createAndEditproduct()" ngNativeValidate >
                       <div class="modal fade mt-5" id="staticModalProducts" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content color-myGray-text">
                             <div class="modal-header px-4">
-                              <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
+                              <h5 class="modal-title" id="staticBackdropLabel">{{titleModal}}</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()" #modalClose></button>
                             </div>
                             <div class="modal-body px-4">
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
-                                <input type="text" name="name" id="name" ngModel class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <input type="text" name="name" id="name" formControlName="name" class="form-control" required>
                               </div>
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Categoria</label>
-                                <select name="type" id="type" ngModel class="form-select" id="inputGroupSelect01" required>
+                                <select name="type" id="type" formControlName="type" class="form-select" required>
                                   <option selected>Seleccione...</option>
                                   <option value="Desayunos">Desayunos</option>
                                   <option value="Burger">Burger</option>
@@ -38,11 +37,11 @@
                               <div class="mb-3 row">
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">Precio Unitario</label>
-                                  <input name="price" step="any" id="price" ngModel type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                  <input name="price" step="any" min="0" id="price" formControlName="price" type="number" class="form-control" required>
                                 </div>
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">URL imagen</label>
-                                  <input name="image" id="image" ngModel type="URL" class="form-control" #inputURL (change)="renderImage(inputURL.value)" required>
+                                  <input name="image" id="image" formControlName="image" type="URL" class="form-control" #inputURL (change)="renderImage(inputURL.value)" required>
                                 </div>
                               </div>
                               <div class="mb-3">
@@ -53,7 +52,7 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button type="submit" class="btn button-myPrimary">
+                              <button type="submit" class="btn button-myPrimary text-white">
                                 <span *ngIf="loadGif == false">Guardar</span> 
                                 <span *ngIf="loadGif">Procesando<img src="../../../assets/img/load.gif" alt="" width="17" height="17"></span>
                               </button>
@@ -62,6 +61,25 @@
                         </div>
                       </div>
                     </form>
+                    <!-- modal eliminar -->
+                    <div class="modal fade mt-5" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content color-myGray-text">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Eliminar producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cleanModalDelete()" #modalCloseDelete></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="alert alert-danger" role="alert">
+                          Estas seguro de eliminar producto <strong>{{nameTemporal}}</strong>, esta acción es irreversible!
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirmar</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
                     <!-- tabla de productos -->
                     <div class="table-responsive">
                         <table class="table color-myGray-text">
@@ -83,8 +101,8 @@
                                   <td>{{ product.type }}</td>
                                   <td>{{ product.updatedAt| date: 'dd-MM-yyyy' }}</td>
                                   <td>
-                                    <i class="fa fa-pencil icon-myEdit"></i>
-                                    <i class="ms-3 fa fa-trash-o icon-myRemove" ></i> <!--(click)="deleteProduct(product._id)"-->
+                                    <i class="fa fa-pencil icon-myEdit" data-bs-toggle="modal" data-bs-target="#staticModalProducts" (click)="loadDataProduct(product)" ></i>
+                                    <i data-bs-toggle="modal" data-bs-target="#modalDelete" class="ms-3 fa fa-trash-o icon-myRemove" (click)="deleteProduct(product._id, product.name)"></i>
                                   </td>
                                 </tr>
                               </tbody>

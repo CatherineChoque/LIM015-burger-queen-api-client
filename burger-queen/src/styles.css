@@ -189,6 +189,16 @@
   color: #8a8989;
 }
 
+.color-myPrimary-text {
+  color: #8a8989;
+  text-decoration: none;
+}
+
+.color-myPrimary-text:hover {
+  color: #FFBA0C;
+  text-decoration: none;
+}
+
 /*iconos*/
 .icon-myEdit {
   cursor: pointer;

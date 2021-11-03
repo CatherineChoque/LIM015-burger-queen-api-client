@@ -7,26 +7,26 @@
 
                   <div class="row  mt-4">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn button-mySecundary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar Usuarios</button>
+                        <button class="btn button-mySecundary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#modalUser">Agregar Usuarios</button>
                     </div>
                     <!-- Modal -->
-                    <form #formUser="ngForm" (submit)="createNewUser(formUser.value)" ngNativeValidate>
-                      <div class="modal fade mt-5" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <form [formGroup]="formUser" (ngSubmit)="createAndEditUser()" ngNativeValidate >
+                      <div class="modal fade mt-5" id="modalUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content color-myGray-text">
                             <div class="modal-header px-4">
-                              <h5 class="modal-title" id="staticBackdropLabel">Nuevo Usuario</h5>
+                              <h5 class="modal-title">{{titleModal}}</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearForm()" #modalClose></button>
                             </div>
                             <div class="modal-body px-4">
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Correo electronico</label>
-                                <input name="email" type="email" autocomplete="off" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ngModel required>
+                                <input name="email" type="email" autocomplete="off" class="form-control" formControlName="email" required>
                               </div>
                               <div class="mb-3 row">
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">Rol</label>
-                                  <select name="selectRol" ngModel class="form-select" id="inputGroupSelect01" required>
+                                  <select name="selectRol"  formControlName="selectRol" class="form-select" required>
                                     <option value="" selected>Seleccione...</option>
                                     <option value="mesero">Mesero</option>
                                     <option value="cocinero">Cocinero</option> 
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">Contraseña</label>
-                                    <input name="password" autocomplete="off" type="text" class="form-control" aria-label="Text input with checkbox" ngModel required>
+                                    <input name="password" autocomplete="off" type="text" class="form-control" formControlName="password" required>
                                 </div>
                               </div>
                             </div>
@@ -49,6 +49,25 @@
                         </div>
                       </div>
                     </form>
+                    <!-- modal eliminar -->
+                    <div class="modal fade mt-5" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content color-myGray-text">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Eliminar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cleanModalDelete()" #modalCloseDelete></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="alert alert-danger" role="alert">
+                          Estas seguro de eliminar el usuario <strong>{{emailTemporal}}</strong>, esta acción es irreversible!
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirmar</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
                     <!-- tabla de usuarios -->
                     <div class="table-responsive">
                         <table class="table color-myGray-text">
@@ -66,7 +85,10 @@
                                   <td *ngIf="user.roles.admin == false">{{ user.roles.name }}</td>
                                   <td *ngIf="user.roles.admin">admin</td>
                                   <td>{{ user.updatedAt| date: 'dd-MM-yyyy' }}</td>
-                                  <td><i class="fa fa-pencil icon-myEdit"></i><i class="ms-3 fa fa-trash-o icon-myRemove"></i></td>
+                                  <td *ngIf="user.email != 'admin@localhost'">
+                                    <i class="fa fa-pencil icon-myEdit" data-bs-toggle="modal" data-bs-target="#modalUser" (click)="loadDataUser(user)" ></i>
+                                    <i data-bs-toggle="modal" data-bs-target="#modalDelete" class="ms-3 fa fa-trash-o icon-myRemove" (click)="deleteUser(user._id, user.email)"></i>
+                                  </td>
                                 </tr>
                               </tbody>
                         </table>

@@ -52,16 +52,25 @@ export class ApiService {
     return this.http.get<ResponseGetUsers[]>(this.direccion);
   }
 
-
-  postProductAdmin(form:any):Observable<any>{
+  addNewProduct(form:any):Observable<any>{
     this.direccion=this.url + 'products';
     return this.http.post<ResponseGetProducts>(this.direccion, form);
   }
-  /*
+
+  updateProduct(form:any,id:string):Observable<any>{
+    this.direccion=this.url + 'products/'+id;
+    return this.http.put<ResponseGetProducts>(this.direccion, form);
+  }
+  
   deleteProductAdmin(id:any):Observable<any>{
-    this.direccion=this.url + 'products'+id;
-    return this.http.delete<ResponseGetProducts[]>(this.direccion);
-  }*/
+    this.direccion = this.url + 'products/' + id;
+    return this.http.delete<ResponseGetProducts>(this.direccion, id);
+  }
+
+  deleteUserAdmin(id:any):Observable<any>{
+    this.direccion = this.url + 'users/' + id;
+    return this.http.delete<ResponseGetUsers>(this.direccion, id);
+  }
 
   addNewOrder(objOrder: any): Observable<any>{
     this.direccion = this.url + 'orders';
@@ -87,5 +96,28 @@ export class ApiService {
     this.direccion = this.url + 'users';
     return this.http.post<ResponseGetUser>(this.direccion, objUser);
   }
+
+  updateUser(form:any,id:string):Observable<any>{
+    this.direccion=this.url + 'users/'+ id;
+    return this.http.put<ResponseGetProducts>(this.direccion, form);
+  }
+
+  getAllOrders(): Observable<any>{
+    this.direccion = this.url + 'orders?limit=0';
+    return this.http.get<ResponseOrder[]>(this.direccion)
+    .pipe(
+      map(order => 
+          order.map(elm => {
+          const client=elm.client.split("-");
+          elm.client=client[0];
+          elm.note=client[1];
+          elm.total=client[2];
+          return elm;
+      }))
+    );
+    
+  }
+
+
 
 }
