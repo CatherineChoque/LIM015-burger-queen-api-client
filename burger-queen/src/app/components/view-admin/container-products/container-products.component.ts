@@ -3,7 +3,7 @@ import { ApiService} from 'src/app/services/api.service';
 import { AlertifyService } from 'src/app/services/alertify/alertify-service.service';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-container-products',
@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./container-products.component.css'],
 })
 export class ContainerProductsComponent implements OnInit {
+  formProduct!: FormGroup;
   p: number = 1;
   public dataProductsByPag:any = [];
   public loadGif = false;
@@ -18,12 +19,10 @@ export class ContainerProductsComponent implements OnInit {
   public picture = this.urldefault;
   private idTemporal = '';
   public nameTemporal = '';
+  public titleModal = '';
 
-  constructor(public apiService: ApiService, private alertify: AlertifyService) {
+  constructor(private fb: FormBuilder, public apiService: ApiService, private alertify: AlertifyService) {
   }
-
-  @ViewChild('formProduct')
-  form!: NgForm;
 
   @ViewChild('modalClose')
   modal!: ElementRef;
@@ -32,7 +31,13 @@ export class ContainerProductsComponent implements OnInit {
   modalDelete!: ElementRef;
 
   ngOnInit(): void {
-    this.loadProducts()
+    this.loadProducts();
+    this.formProduct = this.fb.group({
+      name: [''],
+      type: [''],
+      price: [''],
+      image: ['']
+     });
   }
 
   loadProducts(){
@@ -44,22 +49,39 @@ export class ContainerProductsComponent implements OnInit {
     }); 
   }
 
-  createNewproduct(values:any){
+  createAndEditproduct(){
       this.loadGif = true;
-      this.apiService.postProductAdmin(values).subscribe(() => {
-      this.clearForm();
-      this.loadGif = false; // parar gif
-      this.modal.nativeElement.click();// cerrar
-      this.alertify.success('Creaste un nuevo producto'); // alert
-      this.loadProducts();
-    }, error => {
-      this.loadGif = false;
-      this.alertify.error('Error: ' + error.error.message);
-    });
+      const objProduct = this.formProduct.getRawValue();
+      if(this.idTemporal == ''){
+        this.apiService.addNewProduct(objProduct).subscribe(() => {
+          this.responseSuccess('Creaste un nuevo producto')
+        }, error => {
+          this.loadGif = false;
+          this.alertify.error('Error: ' + error.error.message);
+        });
+      }else{
+        this.apiService.updateProduct(objProduct,this.idTemporal).subscribe(() => {
+          this.responseSuccess('Editado con exito')
+        }, error => {
+          this.loadGif = false;
+          this.alertify.error('Error: ' + error.error.message);
+        });
+      }
+      
+  }
+
+  responseSuccess(message:string){
+    this.clearForm();
+    this.loadGif = false; // parar gif
+    this.modal.nativeElement.click();// cerrar
+    this.alertify.success(message); // alert
+    this.loadProducts();
   }
   
   clearForm(){
-    this.form.reset();
+    this.formProduct.reset();
+    this.idTemporal = '';
+    this.picture = this.urldefault; //colocar image default de nuevo
   }
   
   renderImage(url:string){
@@ -100,6 +122,19 @@ export class ContainerProductsComponent implements OnInit {
   cleanModalDelete(){
     this.idTemporal = '';
     this.nameTemporal = '';
+  }
+
+  // cargar data para editar
+  loadDataProduct(objProduct:any){
+    this.idTemporal = objProduct._id;
+    //console.log(objProduct);
+    this.formProduct.patchValue({
+      name: objProduct.name,
+      type: objProduct.type,
+      price: objProduct.price,
+      image: objProduct.image
+     });
+     this.picture = objProduct.image;
   }
   
 }

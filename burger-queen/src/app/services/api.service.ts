@@ -52,10 +52,14 @@ export class ApiService {
     return this.http.get<ResponseGetUsers[]>(this.direccion);
   }
 
-
-  postProductAdmin(form:any):Observable<any>{
+  addNewProduct(form:any):Observable<any>{
     this.direccion=this.url + 'products';
     return this.http.post<ResponseGetProducts>(this.direccion, form);
+  }
+
+  updateProduct(form:any,id:string):Observable<any>{
+    this.direccion=this.url + 'products/'+id;
+    return this.http.put<ResponseGetProducts>(this.direccion, form);
   }
   
   deleteProductAdmin(id:any):Observable<any>{
@@ -97,5 +101,7 @@ export class ApiService {
     this.direccion = this.url + 'orders?limit=0';
     return this.http.get<ResponseOrder[]>(this.direccion);
   }
+
+
 
 }
