@@ -17,7 +17,6 @@ export class ContainerSentComponent implements OnInit {
   getOrderbyStatus(status: string){
      this.serviceOrder.getOrders(status).subscribe(data => {
       this.allOrders=data;
-      console.log(data);
      })
   }
   

@@ -202,14 +202,10 @@
 
 /* boton */
 .button-myPrimary {
-  background: #EF5A3A;
+  background: #ef5350;
   color: #ffff;
 }
 
-.button-mySecundary {
-  background: #FFBA0C;
-  color: #ffff;
-}
 
 /* tabla */
 .myImage {
