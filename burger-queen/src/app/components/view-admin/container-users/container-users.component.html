@@ -7,7 +7,7 @@
 
                   <div class="row  mt-4">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn button-mySecundary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#modalUser">Agregar Usuarios</button>
+                        <button class="btn button-myPrimary me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#modalUser">Agregar Usuarios</button>
                     </div>
                     <!-- Modal -->
                     <form [formGroup]="formUser" (ngSubmit)="createAndEditUser()" ngNativeValidate >
@@ -40,7 +40,7 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button type="submit" class="btn button-mySecundary">
+                              <button type="submit" class="btn btn-orange2 text-white">
                                 <span *ngIf="loadGif == false">Guardar</span> 
                                 <span *ngIf="loadGif">Procesando<img src="../../../assets/img/load.gif" alt="" width="17" height="17"></span>
                             </button>

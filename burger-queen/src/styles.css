@@ -27,6 +27,9 @@
   background-color: red;
 }
 
+.btn-success-2{
+  background:#3fc59d;
+}
 .text-orange {
   color: #EF5A3A;
 }
@@ -143,7 +146,6 @@
 
 .btn-orange2:hover{
   opacity: 0.85;
-  color: #fff;
 }
 
 .product-img-selected {
@@ -212,14 +214,10 @@
 
 /* boton */
 .button-myPrimary {
-  background: #EF5A3A;
-  color: #ffff;
-}
-
-.button-mySecundary {
   background: #FFBA0C;
   color: #ffff;
 }
+
 
 /* tabla */
 .myImage {
@@ -231,31 +229,31 @@
 .span-on-hold {
   background: #EF5A3A;
   color: #ffff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .span-in-preparation {
   background: #FBBB21;
   color: #ffff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .span-ready {
   background: #BA68C8;
   color: #ffff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .span-finalized {
   background: #1BC47D;
   color: #ffff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .span-cancelled {
-  background: #4E4E4E;
+  background: #9b9898;
   color: #ffff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .text-note{
