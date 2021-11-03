@@ -68,4 +68,14 @@ export class ContainerUsersComponent implements OnInit {
     this.form.reset();
   }
 
+  //eliminar usuario
+  deleteUser(id: any){
+    this.apiService.deleteUserAdmin(id).subscribe(() => {
+      this.alertify.success('Eliminaste un usuario'); // alert
+      this.loadUsers();
+    },error => {
+      this.alertify.error('Error: ' + error.error.message);
+    });
+  }
+
 }

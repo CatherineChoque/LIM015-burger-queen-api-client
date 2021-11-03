@@ -57,11 +57,16 @@ export class ApiService {
     this.direccion=this.url + 'products';
     return this.http.post<ResponseGetProducts>(this.direccion, form);
   }
-  /*
+  
   deleteProductAdmin(id:any):Observable<any>{
-    this.direccion=this.url + 'products'+id;
-    return this.http.delete<ResponseGetProducts[]>(this.direccion);
-  }*/
+    this.direccion = this.url + 'products/' + id;
+    return this.http.delete<ResponseGetProducts>(this.direccion, id);
+  }
+
+  deleteUserAdmin(id:any):Observable<any>{
+    this.direccion = this.url + 'users/' + id;
+    return this.http.delete<ResponseGetUsers>(this.direccion, id);
+  }
 
   addNewOrder(objOrder: any): Observable<any>{
     this.direccion = this.url + 'orders';
@@ -86,6 +91,11 @@ export class ApiService {
   addNewUser(objUser:any):Observable<any>{
     this.direccion = this.url + 'users';
     return this.http.post<ResponseGetUser>(this.direccion, objUser);
+  }
+
+  getAllOrders(): Observable<any>{
+    this.direccion = this.url + 'orders?limit=0';
+    return this.http.get<ResponseOrder[]>(this.direccion);
   }
 
 }

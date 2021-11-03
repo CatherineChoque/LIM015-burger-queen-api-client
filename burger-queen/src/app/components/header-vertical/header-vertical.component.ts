@@ -31,7 +31,7 @@ export class HeaderVerticalComponent implements OnInit {
 
   
   modifyOption(option:string){
-    console.log(option);
+    //console.log(option);
     switch(option){
       case 'menu':
       this.optionMenu = true;

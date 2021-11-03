@@ -16,13 +16,8 @@ export class ContainerProductsComponent implements OnInit {
   public loadGif = false;
   private urldefault = 'https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png';
   public picture = this.urldefault;
-  /*arrayProduct: Object = {
-    _id: '',
-    name: '',
-    price: 0,
-    image: '',
-    type: ''
-  }*/
+  private idTemporal = '';
+  public nameTemporal = '';
 
   constructor(public apiService: ApiService, private alertify: AlertifyService) {
   }
@@ -33,6 +28,9 @@ export class ContainerProductsComponent implements OnInit {
   @ViewChild('modalClose')
   modal!: ElementRef;
 
+  @ViewChild('modalCloseDelete')
+  modalDelete!: ElementRef;
+
   ngOnInit(): void {
     this.loadProducts()
   }
@@ -42,7 +40,7 @@ export class ContainerProductsComponent implements OnInit {
       this.dataProductsByPag = dataProducts.sort((a,b) => {
         return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt);
       })
-      console.log(this.dataProductsByPag);
+      //console.log(this.dataProductsByPag);
     }); 
   }
 
@@ -57,9 +55,7 @@ export class ContainerProductsComponent implements OnInit {
     }, error => {
       this.loadGif = false;
       this.alertify.error('Error: ' + error.error.message);
-    }
-    );
-   
+    });
   }
   
   clearForm(){
@@ -85,23 +81,25 @@ export class ContainerProductsComponent implements OnInit {
   }
 
   //eliminar producto
-  /*
-  deleteProduct(id: any){
-    this.removeItem(id)
-    this.apiService.deleteProductAdmin(id).subscribe((response) => {
-        this.arrayProduct = response
-        this.loadProducts(3);
-      }
-    )
+  deleteProduct(id: any, name:string){
+    this.idTemporal = id;
+    this.nameTemporal = name;
+    //console.log(id);
   }
 
-  removeItem(id: any){
-    let objIndex = this.dataProductsByPag.findIndex(((obj: any) => {
-      obj._id === id;
-    }));
-    if(objIndex != -1){
-      this.dataProductsByPag.splice(objIndex, 1)
-    }
-  }*/
+  confirmDelete(){
+    this.apiService.deleteProductAdmin(this.idTemporal).subscribe(() => {
+      this.modalDelete.nativeElement.click();// cerrar
+      this.alertify.success('Eliminaste un producto'); // alert
+      this.loadProducts();
+    },error => {
+      this.alertify.error('Error: ' + error.error.message);
+    });
+  }
+
+  cleanModalDelete(){
+    this.idTemporal = '';
+    this.nameTemporal = '';
+  }
   
 }

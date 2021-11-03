@@ -38,7 +38,7 @@
                               <div class="mb-3 row">
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">Precio Unitario</label>
-                                  <input name="price" step="any" id="price" ngModel type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                  <input name="price" step="any" min="0" id="price" ngModel type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                 </div>
                                 <div class="col">
                                   <label for="exampleInputEmail1" class="form-label">URL imagen</label>
@@ -62,6 +62,25 @@
                         </div>
                       </div>
                     </form>
+                    <!-- modal eliminar -->
+                    <div class="modal fade mt-5" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content color-myGray-text">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Eliminar producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cleanModalDelete()" #modalCloseDelete></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="alert alert-danger" role="alert">
+                          Estas seguro de eliminar producto <strong>{{nameTemporal}}</strong>, esta acción es irreversible!
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirmar</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
                     <!-- tabla de productos -->
                     <div class="table-responsive">
                         <table class="table color-myGray-text">
@@ -84,7 +103,7 @@
                                   <td>{{ product.updatedAt| date: 'dd-MM-yyyy' }}</td>
                                   <td>
                                     <i class="fa fa-pencil icon-myEdit"></i>
-                                    <i class="ms-3 fa fa-trash-o icon-myRemove" ></i> <!--(click)="deleteProduct(product._id)"-->
+                                    <i data-bs-toggle="modal" data-bs-target="#modalDelete" class="ms-3 fa fa-trash-o icon-myRemove" (click)="deleteProduct(product._id, product.name)"></i>
                                   </td>
                                 </tr>
                               </tbody>
