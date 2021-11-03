@@ -6,12 +6,28 @@
         <div class="mt-2 mx-3">
 
                   <div class="row  mt-5">
+                    <!-- modal -->
+                    <div class="modal fade mt-5" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content color-myGray-text">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
                     <!-- tabla de historial -->
                     <div class="table-responsive ">
                         <table class="table color-myGray-text">
                             <thead>
                                 <tr>
-                                  <th scope="col">Nº</th>
                                   <th scope="col">Cliente</th>
                                   <th scope="col">Detalle de pedido</th>
                                   <th scope="col">Total</th>
@@ -20,48 +36,22 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Cathy</td>
-                                  <td>Detalle de pedido</td>
-                                  <td>s/9.50</td>
-                                  <td><span class="badge span-on-hold">En espera</span></td>
-                                  <td>11/12/2021<br>8:30am</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Yovana</td>
-                                  <td>Detalle de pedido</td>
-                                  <td>s/12.50</td>
-                                  <td><span class="badge span-in-preparation">En preparación</span></td>
-                                  <td>11/12/2021<br>8:30am</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Maria</td>
-                                  <td>Detalle de pedido</td>
-                                  <td>s/12.50</td>
-                                  <td><span class="badge span-ready">Listo</span></td>
-                                  <td>11/12/2021<br>8:30am</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Delia</td>
-                                    <td>Detalle de pedido</td>
-                                    <td>s/12.50</td>
-                                    <td><span class="badge span-finalized">Finalizado</span></td>
-                                    <td>11/12/2021<br>8:30am</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">5</th>
-                                    <td>Rut</td>
-                                    <td>Detalle de pedido</td>
-                                    <td>s/12.50</td>
-                                    <td><span class="badge span-cancelled">Cancelado</span></td>
-                                    <td>11/12/2021<br>8:30am</td>
+                                  <tr *ngFor="let record of dataRecordsByPag | paginate: { itemsPerPage: 10, currentPage: p }">
+                                    <td>{{record.client}}</td>
+                                    <td><a href="" class="pe-auto color-myPrimary-text" data-bs-toggle="modal" data-bs-target="#modalDetail">Detalle de pedido</a></td>
+                                    <td>{{record.total|currency:'symbol': 'S/ '}}</td>
+                                    <td *ngIf="record.status == 'pending'"><span class="badge span-on-hold">En espera</span></td>
+                                    <td *ngIf="record.status == 'preparing'"><span class="badge span-in-preparation">En Preparacion</span></td>
+                                    <td *ngIf="record.status == 'delivering'"><span class="badge span-ready">Listo para servir</span></td>
+                                    <td *ngIf="record.status == 'delivered'"><span class="badge span-finalized">Finalizado</span></td>
+                                    <td *ngIf="record.status == 'canceled'"><span class="badge span-cancelled">Cancelado</span></td> 
+                                    <td>{{record.dateEntry| date: 'medium'}}</td>
                                   </tr>
                               </tbody>
                         </table>
+                      </div>
+                      <div class="row">
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
                       </div>
                   </div>
 

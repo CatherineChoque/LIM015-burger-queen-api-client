@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService} from 'src/app/services/api.service';
 import { AlertifyService } from 'src/app/services/alertify/alertify-service.service';
 import { ViewChild, ElementRef } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -11,20 +11,29 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./container-users.component.css']
 })
 export class ContainerUsersComponent implements OnInit {
-  p: number = 1;
   public dataUsersByPag:any = [];
   public loadGif = false;
+  public emailTemporal = '';
+  public titleModal = 'Crear usuario';
+  private idTemporal = '';
+  formUser!: FormGroup;
+  p: number = 1;
 
-  constructor(public apiService: ApiService, private alertify: AlertifyService) { }
-
-  @ViewChild('formUser')
-  form!: NgForm;
+  constructor(private fb: FormBuilder, public apiService: ApiService, private alertify: AlertifyService) { }
 
   @ViewChild('modalClose')
   modal!: ElementRef;
 
+  @ViewChild('modalCloseDelete')
+  modalDelete!: ElementRef;
+
   ngOnInit(): void {
-    this.loadUsers()
+    this.loadUsers();
+    this.formUser = this.fb.group({
+      email: [''],
+      password: [''],
+      selectRol: ['']
+     });
   }
 
   loadUsers(){
@@ -35,28 +44,40 @@ export class ContainerUsersComponent implements OnInit {
     }); 
   }
 
-  createNewUser(form:any){
-    this.loadGif = true;
+  validatePassword(password:string){
     const regex = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/;
-    const validate = regex.test(form.password);
+    return regex.test(password);
+  }
+
+  createAndEditUser(){
+    this.loadGif = true;
+    const dataUser = this.formUser.getRawValue();
+    const validate = this.validatePassword(dataUser.password);
     let objRoles;
     if(validate){
-      objRoles = (form.selectRol == "admin")?{admin:true}:{admin:false, name:form.selectRol}
+      objRoles = (dataUser.selectRol == "admin")?{admin:true}:{admin:false, name:dataUser.selectRol}
       const objUser = {
-        email:form.email,
-        password:form.password,
+        email:dataUser.email,
+        password:dataUser.password,
         roles:objRoles
       }
-      this.apiService.addNewUser(objUser).subscribe(() => {
-        this.loadGif = false;
-        this.clearForm();
-        this.modal.nativeElement.click();// cerrar
-        this.alertify.success('Creaste un nuevo usuario'); // alert
-        this.loadUsers();
-      },error => {
-        this.alertify.error(error.error.message);
-        this.loadGif = false;
-      });
+
+      if(this.idTemporal == ''){
+        this.apiService.addNewUser(objUser).subscribe(() => {
+          this.responseSuccess('Creaste un nuevo usuario')
+        },error => {
+          this.alertify.error(error.error.message);
+          this.loadGif = false;
+        });
+      }else{
+        this.apiService.updateUser(objUser,this.idTemporal).subscribe(() => {
+          this.responseSuccess('Editado con exito')
+        }, error => {
+          this.loadGif = false;
+          this.alertify.error('Error: ' + error.error.message);
+        });
+      }
+      
 
     }else{
       this.loadGif = false;
@@ -64,8 +85,53 @@ export class ContainerUsersComponent implements OnInit {
     }
   }
 
+  responseSuccess(message:string){
+    this.clearForm();
+    this.loadGif = false; // parar gif
+    this.modal.nativeElement.click();// cerrar
+    this.alertify.success(message); // alert
+    this.loadUsers();
+  }
+
   clearForm(){
-    this.form.reset();
+    this.formUser.reset();
+    this.idTemporal = '';
+  }
+
+  //eliminar usuario
+  deleteUser(id: any, email:string){
+    this.idTemporal = id;
+    this.emailTemporal = email;
+  }
+
+  confirmDelete(){
+    this.apiService.deleteUserAdmin(this.idTemporal).subscribe(() => {
+      this.modalDelete.nativeElement.click();// cerrar
+      this.alertify.success('Eliminaste un usuario'); // alert
+      this.loadUsers();
+    },error => {
+      this.alertify.error('Error: ' + error.error.message);
+    });
+  }
+
+  cleanModalDelete(){
+    this.idTemporal = '';
+    this.emailTemporal = '';
+  }
+
+  loadDataUser(objUser:any){
+    this.idTemporal = objUser._id;
+    this.titleModal = 'Editar Usuario';
+    const rol = (objUser.roles.admin)? 'admin':objUser.roles.name;
+    this.formUser.patchValue({
+      email: objUser.email,
+      password: objUser.password,
+      selectRol: rol
+     });
+  }
+
+  openModal(){
+    this.titleModal = 'Crear nuevo Usuario';
   }
 
 }
