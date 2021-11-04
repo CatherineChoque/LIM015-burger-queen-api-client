@@ -1,6 +1,7 @@
 # Burger Queen (API Client)
 
-imagen aqui
+![mockup1v2](https://user-images.githubusercontent.com/85088235/140256673-a3c8c75d-2be3-48fb-808f-160996e7521c.jpg)
+
 
 ### Made by [Yova V.](https://github.com/yovana888)  & [Cathy C.](https://github.com/CatherineChoque)
 ### Link a aplicación [Burger Queen]()
@@ -62,7 +63,7 @@ Yo como meserx quiero tomar el pedido de unx clientx para no depender de mi mala
 memoria, para saber cuánto cobrar, y enviarlo a la cocina para evitar errores y
 que se puedan ir preparando en orden.
 
-##### Criterios de aceptación
+#### Criterios de aceptación
 
 Lo que debe ocurrir para que se satisfagan las necesidades del usuario
 
