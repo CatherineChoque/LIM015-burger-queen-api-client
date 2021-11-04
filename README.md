@@ -18,6 +18,8 @@
 
 El presente proyecto, BURGER QUEEN es una plicación responsive diseñada con Angular, Bootsrap, consumo de Apis entre otras tecnologías de desarrollo web, para la toma de pedidos y el envió de los mismos a cocina, así como también el historial de las ventas realizadas.
 
+![burgervideo](https://user-images.githubusercontent.com/85088235/140258149-58888a91-1cbe-4d5b-9f9b-cab99a523afe.gif)
+
 
 ## 2. Definicion del producto
 
