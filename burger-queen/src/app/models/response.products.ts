@@ -4,5 +4,6 @@ export interface ResponseGetProducts{
       price: number;
       image: string,
       type: string, 
-      updatedAt:any
+      updatedAt:any,
+      selected?:boolean
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProductsSelectedService } from 'src/app/services/data-products-selected.service';
 import { ApiService} from 'src/app/services/api.service';
-import {filter,map,tap,toArray} from "rxjs/operators";
+
 @Component({
   selector: 'app-container-productos',
   templateUrl: './container-productos.component.html',
@@ -23,13 +23,13 @@ export class ContainerProductosComponent implements OnInit {
 
   constructor(public dataSelectedProducts: DataProductsSelectedService, public apiService: ApiService) {
   }
-  
+
   ngOnInit(): void {
     this.loadProducts('Desayunos',0);
-    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
   }
    
   loadProducts(nameCategory:string,index:number){
+    this.productsSelected = this.dataSelectedProducts.getIdSelectProducts();
     this.apiService.getProductsWaiter(nameCategory)
     .subscribe(data => {
       this.dataProducts=data;
@@ -46,10 +46,10 @@ export class ContainerProductosComponent implements OnInit {
     }
     this.indexAnterior=index;
   }
-  
+
   modifyProducts(objProduct:any){
-   
-    if(this.productsSelected.includes(objProduct)){
+    
+    if(this.productsSelected.includes(objProduct._id)){
         this.dataSelectedProducts.updateDataSelectProducts(objProduct._id,'delete'); //aqui le paso el id
         this.dataSelectedProducts.updateTotal();
     }else{
@@ -60,8 +60,7 @@ export class ContainerProductosComponent implements OnInit {
         this.dataSelectedProducts.updateTotal();
     } 
     //Volvemos a llamar los que estan selecionados, para que actualice en la DOM
-    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
-
+    this.productsSelected = this.dataSelectedProducts.getIdSelectProducts();
   }
 
   

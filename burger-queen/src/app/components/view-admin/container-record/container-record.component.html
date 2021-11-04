@@ -3,58 +3,52 @@
     <h5 class="mt-3 mx-3">Historial</h5>
     <div class="mt-2 mx-3">
       <div class="row mt-5">
-        <!-- modal -->
-        <div
-          class="modal fade mt-5"
-          id="modalDetail"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true">
 
-            <div class="modal-dialog">
-              <div class="modal-content color-myGray-text">
-                <div class="modal-header">
-                  <h5 class="modal-title">Detalles | {{clienteTempotal}}</h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+       <!-- -----------------Modal Detalles------------------------ -->
+        <div class="modal fade mt-5" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+          <div class="modal-dialog">
+            <div class="modal-content color-myGray-text">
+              <div class="modal-header">
+                <h5 class="modal-title">Detalles | {{clienteTempotal}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered color-myGray-text">
+                    <thead>
+                      <tr class="text-center">
+                        <th>Producto</th>
+                        <th>Cant.</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let product of dataProductDetails" class="text-center">
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.cantidad }}</td>
+                        <td>{{ product.price | currency: "symbol":""}}</td>
+                        <td>{{ product.subtotal | currency: "symbol":""}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" class="text-end"><strong>{{ totalTemporal | currency: "symbol":"S/ "}}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="modal-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered color-myGray-text">
-                      <thead>
-                        <tr  class="text-center">
-                          <th>Producto</th>
-                          <th>Cant.</th>
-                          <th>Precio</th>
-                          <th>Subtotal</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let product of dataProductDetails" class="text-center">
-                          <td>{{ product.name }}</td>
-                          <td>{{ product.cantidad }}</td>
-                          <td>{{ product.price | currency: "symbol":""}}</td>
-                          <td>{{ product.subtotal | currency: "symbol":""}}</td>
-                        </tr>
-                        <tr><td colspan="4" class="text-end"><strong>{{ totalTemporal | currency: "symbol":"S/ "}}</strong></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <p class="text-note mt-2">
-                    <i class="far fa-sticky-note"></i> {{ notaTemporal }}
-                  </p>
-                </div>
+                <p class="text-note mt-2">
+                  <i class="far fa-sticky-note"></i> {{ notaTemporal }}
+                </p>
               </div>
             </div>
+          </div>
 
         </div>
-        <!-- tabla de historial -->
+       
+        <!-- -----------------Tabla Historial------------------------ -->
         <div class="table-responsive">
           <table class="table color-myGray-text">
             <thead>
@@ -67,37 +61,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="
+              <tr *ngFor="
                   let record of dataRecordsByPag
                     | paginate: { itemsPerPage: 10, currentPage: p }">
                 <td>{{ record.client }}</td>
                 <td>
-                  <a
-                    href=""
-                    class="pe-auto color-myPrimary-text"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalDetail"
-                    (click)="loadDetails(record)"
-                    >Detalle de pedido</a
-                  >
+                  <a href="" class="pe-auto color-myPrimary-text" data-bs-toggle="modal" data-bs-target="#modalDetail"
+                    (click)="loadDetails(record)">Detalle de pedido</a>
                 </td>
                 <td>{{ record.total | currency: "symbol":"S/ " }}</td>
-                <td *ngIf="record.status == 'pending'">
-                  <span class="badge span-on-hold">En espera</span>
+                
+                <td [ngSwitch]="record.status">
+                  <span *ngSwitchCase="'pending'"    class="badge span-on-hold">En espera</span>
+                  <span *ngSwitchCase="'preparing'"  class="badge span-in-preparation">En preparacion</span>
+                  <span *ngSwitchCase="'delivering'" class="badge span-ready">Listo para servir</span>
+                  <span *ngSwitchCase="'delivered'"  class="badge span-finalized">Finalizado</span>
+                  <span *ngSwitchCase="'canceled'"   class="badge span-cancelled">Cancelado</span>
                 </td>
-                <td *ngIf="record.status == 'preparing'">
-                  <span class="badge span-in-preparation">En Preparacion</span>
-                </td>
-                <td *ngIf="record.status == 'delivering'">
-                  <span class="badge span-ready">Listo para servir</span>
-                </td>
-                <td *ngIf="record.status == 'delivered'">
-                  <span class="badge span-finalized">Finalizado</span>
-                </td>
-                <td *ngIf="record.status == 'canceled'">
-                  <span class="badge span-cancelled">Cancelado</span>
-                </td>
+
                 <td>{{ record.dateProcessed | date: "medium" }}</td>
               </tr>
             </tbody>

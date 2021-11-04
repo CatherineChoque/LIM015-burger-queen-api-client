@@ -4,28 +4,15 @@
     <div class="mt-5 mx-3">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <button
-            class="nav-link active"
-            id="enEspera"
-            data-bs-toggle="tab"
-            data-bs-target="#tabContenido"
-            type="button"
-            role="tab"
-            aria-controls="tabContenido"
-            aria-selected="true" (click)="getOrderbyStatus('pending')">
+          <button class="nav-link active" id="enEspera" data-bs-toggle="tab" data-bs-target="#tabContenido"
+            type="button" role="tab" aria-controls="tabContenido" aria-selected="true"
+            (click)="getOrderbyStatus('pending')">
             En espera
           </button>
         </li>
         <li class="nav-item">
-          <button
-            class="nav-link"
-            id="enPreparacion"
-            data-bs-toggle="tab"
-            data-bs-target="#tabContenido"
-            type="button"
-            role="tab"
-            aria-controls="tabContenido"
-            aria-selected="false" (click)="getOrderbyStatus('preparing')">
+          <button class="nav-link" id="enPreparacion" data-bs-toggle="tab" data-bs-target="#tabContenido" type="button"
+            role="tab" aria-controls="tabContenido" aria-selected="false" (click)="getOrderbyStatus('preparing')">
             En preparacion
           </button>
         </li>
@@ -56,9 +43,7 @@
                     </div>
                   </div>
                   <hr />
-                  <li
-                    *ngFor="let product of order.products"
-                     class="
+                  <li *ngFor="let product of order.products" class="
                       d-flex
                       justify-content-between
                       align-items-center
@@ -70,9 +55,13 @@
                     <i class="far fa-sticky-note"></i> {{ order.note }}
                   </p>
 
-                  <button  *ngIf="order.status == 'pending'" type="button" class="btn btn-orange2 col-12 btn-xs text-white" (click)="changeStatusOrder('preparing',order._id)">Pasar a preparación</button>
-                  <button  *ngIf="order.status == 'preparing'" type="button" class="btn btn-success-2 col-12 btn-xs text-white" (click)="changeStatusOrder('delivering',order._id)">Para servir</button>
-                  
+                  <button *ngIf="order.status == 'pending'" type="button"
+                    class="btn btn-orange2 col-12 btn-xs text-white"
+                    (click)="changeStatusOrder('preparing',order._id)">Pasar a preparación</button>
+                  <button *ngIf="order.status == 'preparing'" type="button"
+                    class="btn btn-success-2 col-12 btn-xs text-white"
+                    (click)="changeStatusOrder('delivering',order._id)">Para servir</button>
+
                 </div>
               </div>
             </div>
