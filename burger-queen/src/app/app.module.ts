@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ViewWaiterComponent } from './components/view-waiter/view-waiter.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -11,9 +13,14 @@ import { ContainerProductosComponent } from './components/view-waiter/container-
 import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component';
 import { ContainerSentComponent } from './components/view-waiter/container-sent/container-sent.component';
 import { ContainerReadyComponent } from './components/view-waiter/container-ready/container-ready.component'; 
-import { DataProductsSelectedService } from './services/data-products-selected.service';
-import { ContainerSumaryComponent } from './components/view-waiter/container-sumary/container-sumary.component'; 
-import { DataProductsSelectedService } from './services/data-products-selected.service';
+import { ContainerEnvoyComponent } from './components/view-chef/container-envoy/container-envoy.component';
+import { ViewChefComponent } from './components/view-chef/view-chef.component';
+import { ViewAdminComponent } from './components/view-admin/view-admin.component';
+import { ContainerProductsComponent } from './components/view-admin/container-products/container-products.component';
+import { ContainerUsersComponent } from './components/view-admin/container-users/container-users.component';
+import { ContainerRecordComponent } from './components/view-admin/container-record/container-record.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -27,12 +34,31 @@ import { DataProductsSelectedService } from './services/data-products-selected.s
     ContainerSumaryComponent,
     ContainerSentComponent,
     ContainerReadyComponent,
+    ContainerEnvoyComponent,
+    ViewChefComponent,
+    ViewAdminComponent,
+    ContainerProductsComponent,
+    ContainerUsersComponent,
+    ContainerRecordComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
-  providers: [DataProductsSelectedService],
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
+
 })
 export class AppModule { }

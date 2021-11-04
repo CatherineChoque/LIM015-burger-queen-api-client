@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-12">
+    <h5 class="mt-3 mx-3">Enviados a la cocina</h5>
+    <div class="mt-5 mx-3">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <button class="nav-link active" id="enEspera" data-bs-toggle="tab" data-bs-target="#tabContenido"
+            type="button" role="tab" aria-controls="tabContenido" aria-selected="true"
+            (click)="getOrderbyStatus('pending')">
+            En espera
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" id="enPreparacion" data-bs-toggle="tab" data-bs-target="#tabContenido" type="button"
+            role="tab" aria-controls="tabContenido" aria-selected="false" (click)="getOrderbyStatus('preparing')">
+            En preparacion
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab" role="tabpanel">
+          <div class="row">
+
+            <h6 *ngIf="allOrders.length == 0" class="text-secondary mt-5 text-center">
+              <i class="far fa-sticky-note"></i>{{messageOrder}}
+            </h6>
+
+            <div *ngFor="let order of allOrders" class="col-sm-6 col-lg-3">
+              <div class="card mt-5 border-2 rounded-3 shadow">
+                <div class="card-body color-myGray">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <h6 class="color-myGray-text ms-2">{{ order.client }}</h6>
+                    </div>
+                    <div>
+                      <h5>
+                        <span class="
+                            badge
+                            color-mySecondary color-myGray-text
+                            rounded-3">{{ order.dateProcessed | date: "h:mm a" }}</span>
+                      </h5>
+                    </div>
+                  </div>
+                  <hr />
+                  <li *ngFor="let product of order.products" class="
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                      color-myGray-text
+                      mt-2"> {{ product.productId.name }}
+                    <span class="badge color-myPrimary-v2 rounded-3">{{product.qty}}</span>
+                  </li>
+                  <p class="text-note mt-2">
+                    <i class="far fa-sticky-note"></i> {{ order.note }}
+                  </p>
+
+                  <button *ngIf="order.status == 'pending'" type="button"
+                    class="btn btn-orange2 col-12 btn-xs text-white"
+                    (click)="changeStatusOrder('preparing',order._id)">Pasar a preparación</button>
+                  <button *ngIf="order.status == 'preparing'" type="button"
+                    class="btn btn-success-2 col-12 btn-xs text-white"
+                    (click)="changeStatusOrder('delivering',order._id)">Para servir</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

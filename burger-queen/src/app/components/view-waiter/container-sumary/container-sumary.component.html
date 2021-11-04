@@ -4,9 +4,9 @@
   </span>
 </h5>
 
-<form class="bg-light ps-3 pe-3 pt-1">
+<form class="bg-light ps-3 pe-3 pt-1" #formSumary="ngForm" (submit)="sendOrder(formSumary.value)" ngNativeValidate>
   <div class="row">
-    <input type="text" class="form-control" id="cliente" placeholder="Nombre Cliente" required />
+    <input type="text" class="form-control" id="cliente" name="nameClient" ngModel placeholder="Nombre Cliente" required />
   </div>
   <div class="row mt-3">
     <div class="table-responsive">
@@ -15,7 +15,7 @@
           <tr *ngFor="let product of dataSelectedProducts.getDataSelectProducts()">
 
             <td>
-              <img class="img-thumbnail" src="{{product.img}}" alt="" width="60" height="50" />
+              <img class="img-thumbnail" src="{{product.image}}" alt="" width="60" height="50" />
             </td>
 
             <td>
@@ -24,11 +24,11 @@
               </div>
               <div class="row">
                 <div class="input-group group-product mt-2">
-                  <button class="btn btn-outline-orange btn-sm" type="button" id="button-addon1">
+                  <button class="btn btn-outline-orange btn-sm" type="button" id="button-addon1" (click)="updateQuantityProduct(product._id,'add')">
                     <i class="fa fa-plus"></i>
                   </button>
                   <input type="text" class="form-control form-control-sm" value="{{product.quantity}}" readonly />
-                  <button class="btn btn-outline-orange btn-sm" type="button" id="button-addon2">
+                  <button class="btn btn-outline-orange btn-sm" type="button" id="button-addon2" (click)="updateQuantityProduct(product._id,'subtract')">
                     <i class="fa fa-minus"></i>
                   </button>
                 </div>
@@ -37,10 +37,10 @@
 
             <td>
               <div class="row">
-                <i class="fas fa-trash-alt btn-delete-row"></i>
+                <i class="fas fa-trash-alt btn-delete-row"  (click)="deleteProductSelected(product._id)"></i>
               </div>
               <div class="row text-center">
-                <span class="mt-3 text-secondary"> S/. {{product.price}}</span>
+                <span class="mt-3 text-secondary"> S/. {{product.subTotal}}</span>
               </div>
             </td>
 
@@ -56,10 +56,13 @@
     </div>
   </div>
   <div class="row">
-    <textarea class="form-control" id="Textarea1" rows="3" placeholder="Notas"></textarea>
+    <textarea class="form-control"  name="note" ngModel rows="3" placeholder="Notas"></textarea>
   </div>
   <div class="row">
-    <button class="btn btn-orange2 mt-3">Enviar Pedido</button>
-    <button class="btn  btn-outline-secondary mt-2" (click)="cancelOrder()" type="button">Cancelar</button>
+    <button class="btn btn-orange2 mt-3 text-white" type="submit">
+      <span *ngIf="loadGif == false">Enviar Orden</span> 
+      <span *ngIf="loadGif">Procesando<img src="../../../../assets/img/load.gif" alt="" width="17" height="17"></span>
+    </button>
+    <button class="btn  btn-outline-secondary mt-2" (click)="cleanOrder()" type="button">Cancelar</button>
   </div>
 </form>
