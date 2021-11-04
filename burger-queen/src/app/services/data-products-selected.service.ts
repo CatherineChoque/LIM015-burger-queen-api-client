@@ -5,15 +5,17 @@ import { Injectable } from '@angular/core';
 })
 
 export class DataProductsSelectedService {
-  constructor() { }
 
-  arraySeletectProducts: any = [];
+  constructor() { }
+  private arraySeletectProducts: any = [];
+
   total: number = 0;
   
   getIdSelectProducts(){
     return this.arraySeletectProducts.map((elm: { _id: any; })=>elm._id);
   }
   getDataSelectProducts() {
+    console.log(this.arraySeletectProducts, 'aqui servis');
     return this.arraySeletectProducts;
   }
 

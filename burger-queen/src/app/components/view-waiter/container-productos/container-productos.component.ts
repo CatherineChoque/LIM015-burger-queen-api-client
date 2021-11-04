@@ -9,7 +9,7 @@ import { ApiService} from 'src/app/services/api.service';
 })
 export class ContainerProductosComponent implements OnInit {
 
-  public productsSelected:any=[];
+  public productsSelected:any = [];
   public dataProducts:any=[];
   public optionsCategory:any=[
     {id: 0,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
@@ -31,7 +31,10 @@ export class ContainerProductosComponent implements OnInit {
   loadProducts(nameCategory:string,index:number){
     this.productsSelected = this.dataSelectedProducts.getIdSelectProducts();
     this.apiService.getProductsWaiter(nameCategory)
-    .subscribe(data => this.dataProducts=data); 
+    .subscribe(data => {
+      this.dataProducts=data;
+      console.log(this.productsSelected);
+    }); 
     this.changeOptionCategory(index)
   }
 
