@@ -5,10 +5,11 @@ import { Injectable } from '@angular/core';
 })
 
 export class DataProductsSelectedService {
-  arraySeletectProducts: any = [];
+  private arraySeletectProducts: any = [];
   total: number = 0;
 
   getDataSelectProducts() {
+    console.log(this.arraySeletectProducts, 'aqui servis');
     return this.arraySeletectProducts;
   }
   

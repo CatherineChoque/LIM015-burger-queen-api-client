@@ -16,8 +16,7 @@
     <div class="card box-shadow" (click)="modifyProducts(product)">
       
       <img src="{{ product.image }}" class="card-img-top" />
-      <div class="position-absolute card-img-top text-center product-img-selected"
-        *ngIf="dataSelectedProducts.getDataSelectProducts().includes(product)">
+      <div class="position-absolute card-img-top text-center product-img-selected" *ngIf="productsSelected.includes(product)">
         <i class="fas fa-check-circle"></i>
       </div>
 

@@ -9,7 +9,7 @@ import {filter,map,tap,toArray} from "rxjs/operators";
 })
 export class ContainerProductosComponent implements OnInit {
 
-  public productsSelected;
+  public productsSelected:any = [];
   public dataProducts:any=[];
   public optionsCategory:any=[
     {id: 0,nameCategory:'Desayunos',value:false,icon:"fas fa-mug-hot"},
@@ -22,12 +22,19 @@ export class ContainerProductosComponent implements OnInit {
   indexAnterior:number=-1
 
   constructor(public dataSelectedProducts: DataProductsSelectedService, public apiService: ApiService) {
-    this.productsSelected = dataSelectedProducts.getDataSelectProducts();
+  }
+  
+  ngOnInit(): void {
+    this.loadProducts('Desayunos',0);
+    this.productsSelected = this.dataSelectedProducts.getDataSelectProducts();
   }
    
   loadProducts(nameCategory:string,index:number){
     this.apiService.getProductsWaiter(nameCategory)
-    .subscribe(data => this.dataProducts=data); 
+    .subscribe(data => {
+      this.dataProducts=data;
+      console.log(this.productsSelected);
+    }); 
     this.changeOptionCategory(index)
   }
 
@@ -38,10 +45,6 @@ export class ContainerProductosComponent implements OnInit {
       this.optionsCategory[this.indexAnterior].value = false;
     }
     this.indexAnterior=index;
-  }
-
-  ngOnInit(): void {
-    this.loadProducts('Desayunos',0);
   }
   
   modifyProducts(objProduct:any){
