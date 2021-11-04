@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-
-import { HttpClient,HttpParams } from '@angular/common/http';
-import { ResponseLogin, ResponseGetUser} from '../response/response.login'
-import { ResponseGetProducts } from '../response/response.products'
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
-import { ResponseGetUsers } from '../response/response.users';
-import {ResponseOrder } from '../response/response.order';
+
+import { ResponseLogin, ResponseGetUser} from '../models/response.login'
+import { ResponseGetProducts } from '../models/response.products'
+import { ResponseGetUsers } from '../models/response.users';
+import {ResponseOrder } from '../models/response.order';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
 
   url: string = "https://burger-queen-v2.herokuapp.com/";
   direccion: string = "";
-
   constructor(private http: HttpClient) { }
+  
+  
+// ------------------------------ Auth User Login --------------------------------------
 
   loginByEmail(form: any): Observable<any> {
     this.direccion = this.url + 'auth';
@@ -34,6 +37,9 @@ export class ApiService {
     );
   }
 
+
+  // ------------------------------ Administracion Productos --------------------------------------
+
   getProductsWaiter(nameCategory: string): Observable<any> {
     this.direccion = this.url + 'products?limit=0';
     return this.http.get<ResponseGetProducts[]>(this.direccion)
@@ -46,12 +52,7 @@ export class ApiService {
     this.direccion=this.url + 'products?limit=0';
     return this.http.get<ResponseGetProducts[]>(this.direccion);
   }
-
-  getUsersAdmin(): Observable<any> {
-    this.direccion = this.url + 'users?limit=0';
-    return this.http.get<ResponseGetUsers[]>(this.direccion);
-  }
-
+  
   addNewProduct(form:any):Observable<any>{
     this.direccion=this.url + 'products';
     return this.http.post<ResponseGetProducts>(this.direccion, form);
@@ -66,11 +67,30 @@ export class ApiService {
     this.direccion = this.url + 'products/' + id;
     return this.http.delete<ResponseGetProducts>(this.direccion, id);
   }
+  
+  // ------------------------------ Administracion de Usuarios --------------------------------------
+
+  getUsersAdmin(): Observable<any> {
+    this.direccion = this.url + 'users?limit=0';
+    return this.http.get<ResponseGetUsers[]>(this.direccion);
+  }
+  
+  addNewUser(objUser:any):Observable<any>{
+    this.direccion = this.url + 'users';
+    return this.http.post<ResponseGetUser>(this.direccion, objUser);
+  }
+
+  updateUser(form:any,id:string):Observable<any>{
+    this.direccion=this.url + 'users/'+ id;
+    return this.http.put<ResponseGetProducts>(this.direccion, form);
+  }
 
   deleteUserAdmin(id:any):Observable<any>{
     this.direccion = this.url + 'users/' + id;
     return this.http.delete<ResponseGetUsers>(this.direccion, id);
   }
+
+  // ------------------------------ Administracion de Ordenes --------------------------------------
 
   addNewOrder(objOrder: any): Observable<any>{
     this.direccion = this.url + 'orders';
@@ -95,16 +115,6 @@ export class ApiService {
   updateStatusOrder(id:string,status:any):Observable<any>{
     this.direccion=this.url + 'orders/'+ id;
     return this.http.put<ResponseOrder[]>(this.direccion, status);
-  }
-
-  addNewUser(objUser:any):Observable<any>{
-    this.direccion = this.url + 'users';
-    return this.http.post<ResponseGetUser>(this.direccion, objUser);
-  }
-
-  updateUser(form:any,id:string):Observable<any>{
-    this.direccion=this.url + 'users/'+ id;
-    return this.http.put<ResponseGetProducts>(this.direccion, form);
   }
 
   getAllOrders(): Observable<any>{

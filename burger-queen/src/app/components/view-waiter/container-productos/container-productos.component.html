@@ -1,23 +1,22 @@
+<!-- -----------Categorias------------------- -->
+
 <div class="scrolling-wrapper-flexbox row mx-1">
-  <div
-    *ngFor="let option of optionsCategory"
-    class="card-category"
-    [ngClass]="option.value ? 'category-active' : ''"
+  <div *ngFor="let option of optionsCategory" class="card-category" [ngClass]="option.value ? 'category-active' : ''"
     (click)="loadProducts(option.nameCategory, option.id)">
     <div class="icon-category"><i class="{{ option.icon }}"></i></div>
     <span>{{ option.nameCategory }}</span>
   </div>
 </div>
 
+<!-- -----------Productos-------------------- -->
+
 <div class="row mx-1">
-  <div
-    *ngFor="let product of dataProducts"
-    class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
+  <div *ngFor="let product of dataProducts" class="col-sm-4 py-3 py-sm-0 col-md-4 mt-3 card-product">
     <div class="card box-shadow" (click)="modifyProducts(product)">
-      
+
       <img src="{{ product.image }}" class="card-img-top" />
       <div class="position-absolute card-img-top text-center product-img-selected"
-        *ngIf="dataSelectedProducts.getDataSelectProducts().includes(product)">
+        *ngIf="productsSelected.includes(product._id)">
         <i class="fas fa-check-circle"></i>
       </div>
 

@@ -5,11 +5,25 @@ import { Injectable } from '@angular/core';
 })
 
 export class DataProductsSelectedService {
+  constructor() { }
+
   arraySeletectProducts: any = [];
   total: number = 0;
-
+  
+  getIdSelectProducts(){
+    return this.arraySeletectProducts.map((elm: { _id: any; })=>elm._id);
+  }
   getDataSelectProducts() {
     return this.arraySeletectProducts;
+  }
+
+  getTotal() {
+    return this.total.toFixed(2);
+  }
+
+  cleanOrder() {
+    this.arraySeletectProducts = [];
+    this.total = 0;
   }
   
    //se encarga de eleminar o agregar productos en el sumary
@@ -18,12 +32,7 @@ export class DataProductsSelectedService {
       this.arraySeletectProducts = [...this.arraySeletectProducts, data];
     } else { //entonces eliminamos el producto de la Tabla
       this.arraySeletectProducts = this.arraySeletectProducts.filter((product: { _id: any; }) => product._id !== data);
-      //console.log(this.arraySeletectProducts,'aqui actualizando deleted')
     }
-  }
-
-  getTotal() {
-    return this.total.toFixed(2);
   }
 
   updateTotal() {
@@ -35,11 +44,6 @@ export class DataProductsSelectedService {
         this.total = this.total + Number(product.price) * Number(product.quantity);
       })
     }
-  }
-
-  cleanOrder() {
-    this.arraySeletectProducts = [];
-    this.total = 0;
   }
 
   //donde action puede aumentar la cantidad o disminuir
@@ -63,5 +67,4 @@ export class DataProductsSelectedService {
     this.arraySeletectProducts[objIndex].subTotal =  newSubTotal.toFixed(2);
   }
 
-  constructor() { }
 }
